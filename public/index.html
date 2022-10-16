@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <script type="text/javascript" src="./libs/gismap.js"></script>
+    <script
+      type="text/javascript"
+      src="./libs/ol5/jquery-1.11.2.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./libs/ol5/MapGis_ol_product.js"
+    ></script>
+    <script type="text/javascript" src="./libs/config.js"></script>
+    <script
+      type="text/javascript"
+      src="./libs/gis-zondymap-adapter.js"
+    ></script>
+    <link rel="stylesheet" type="text/css" href="./libs/ol5/ol.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./libs/gis-zondymap-adapter.css"
+    />
+    <script src="./libs//Hmap2D.min.js"></script>
+    <script>
+      new hgis.Hmap2D({
+        serviceURL: "https://",
+        MAPGIS_URL: "http://",
+      },(mapObj)=>{
+        window.mapObj=mapObj
+      });
+      window.baseUrl=''
+      window.imgUrl='http://192.168.90.99/mappic'
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
