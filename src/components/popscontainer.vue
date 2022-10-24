@@ -89,11 +89,10 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      if (this.$refs.popUl) {
-        setTimeout(() => {
+     
           if (!this.$refs.popUl) return;
           this.elWidth = this.$refs.popUl.clientWidth + 120 + "px";
-        });
+       
       }
     });
   },
