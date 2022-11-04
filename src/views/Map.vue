@@ -17,7 +17,7 @@
       <div id="popup-content"></div>
     </div>
     <FormDialog></FormDialog>
-
+    <div class="singout"><el-button type="primary" @click="singOut">退出</el-button></div>
   </div>
 </template>
 
@@ -77,6 +77,11 @@ export default {
     position: absolute;
     bottom: 10px;
     right: 10px;
+  }
+  .singout{
+    position:absolute;
+    top: 40px;
+    right:20px;
   }
 }
 </style>
