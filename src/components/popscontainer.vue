@@ -93,7 +93,6 @@ export default {
           if (!this.$refs.popUl) return;
           this.elWidth = this.$refs.popUl.clientWidth + 120 + "px";
        
-      }
     });
   },
   methods: {},
