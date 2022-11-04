@@ -17,6 +17,7 @@
       <div id="popup-content"></div>
     </div>
     <FormDialog></FormDialog>
+
   </div>
 </template>
 
@@ -48,6 +49,12 @@ export default {
       console.log(e);
     });
   },
+  methods:{
+    singOut(){
+      this.$tMap.destory()
+      this.$router.push("/login")
+    }
+  }
 };
 </script>
 
@@ -61,7 +68,7 @@ export default {
     height: 100%;
   }
   #mousePosition {
-    width: 330px;
+    width: 340px;
     height: 25px;
     line-height: 25px;
     text-align: center;
