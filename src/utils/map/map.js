@@ -38,7 +38,7 @@ export default {
     );
   },
   destory(){
-     mapObj.Tool.destroy()
+     mapObj.Tool.destory()
   },
   /**
    * @name: selectClick
