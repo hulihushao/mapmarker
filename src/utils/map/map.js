@@ -37,6 +37,9 @@ export default {
       }
     );
   },
+  destory(){
+     mapObj.Tool.destroy()
+  },
   /**
    * @name: selectClick
    * @description: 单击选中
