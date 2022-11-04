@@ -1314,6 +1314,7 @@
       this.getBboxData = getBboxData;
       this.locationJudging = locationJudging;
       this.locationJudgingPoint = locationJudgingPoint;
+      this.destory=destroy
     }
   }
   /*  class Map {
