@@ -110,7 +110,7 @@ export default {
   computed: {},
   mounted() {
     this.refreshCode();
-    // this.formLogin.check = this.identifyCode;
+    this.formLogin.check = this.identifyCode;
   },
   methods: {
     // 登录
