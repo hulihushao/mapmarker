@@ -107,7 +107,7 @@ export default {
         //当前窗口可见
         autoPan: true,
         // 距离顶部的距离
-        autoPanMargin: 150,
+        autoPanMargin: 50,
         //Popup放置的位置
         positioning: "bottom-center",
         //是否应该停止事件传播到地图窗口
