@@ -51,9 +51,12 @@ export default {
   },
   methods:{
     singOut(){
-      this.$tMap.destory()
+      
       this.$router.push("/login")
     }
+  },
+  beforeDestroy(){
+    this.$tMap.destory()
   }
 };
 </script>
