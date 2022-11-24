@@ -68,4 +68,64 @@ export default {
       },
     },
   },
+  measureLine: {
+    message: {
+      geodesic: true,
+      DefaultMsg: "",
+      processLineMsg: "",
+      isShow: true,
+    },
+    style: {
+      finallStyle: {
+        zIndex: 9,
+        fillColor: "rgba(0, 0, 0, 0.2)",
+        stroke: {
+          color: "#ffcc33",
+        },
+      },
+    drawStyle: {
+        fillColor: "rgba(0, 0, 0, 0.2)",
+        stroke: {
+          color: "rgba(255, 0, 0, 1)",
+          lineDash: [5, 1, 5],
+          width: 2,
+        },
+        image: {
+          radius: 5,
+          strokeColor: "rgba(0, 0, 0, 0.7)",
+          fillColor: "rgba(255, 255, 255, 0.2)",
+        },
+      },
+    },
+  },
+  measurePolygon: {
+    message: {
+      geodesic: true,
+      DefaultMsg: "",
+      processPolygonMsg: "",
+    },
+    style: {
+      finallStyle: {
+        zIndex: 9,
+        fillColor: "rgba(0, 0, 0, 0.2)",
+        stroke: {
+          color: "#ffcc33",
+          width: 5,
+        },
+      },
+      drawStyle: {
+        fillColor: "rgba(0, 0, 0, 0.2)",
+        stroke: {
+          color: "rgba(0, 0, 0, 0.5)",
+          lineDash: [5, 1,5],
+          width: 2,
+        },
+        image: {
+          radius: 5,
+          strokeColor: "rgba(0, 0, 0, 0.7)",
+          fillColor: "rgba(255, 255, 255, 0.2)",
+        },
+      },
+    },
+  },
 };
