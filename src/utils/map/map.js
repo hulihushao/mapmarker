@@ -40,6 +40,9 @@ export default {
   destory(){
      mapObj.Tool.destory()
   },
+  reStore(){
+    mapObj.Tool.setReStore()
+  },
   /**
    * @name: selectClick
    * @description: 单击选中
