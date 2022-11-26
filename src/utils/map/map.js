@@ -159,4 +159,10 @@ export default {
       return false;
     };
   },
+  measureLine(styles,callback){
+    mapObj.Tool.ranging(styles.message, styles.style,callback)
+  },
+  measurePolygon(styles,callback){
+    mapObj.Tool.measuringSurface(styles.message, styles.style,callback)
+  }
 };
