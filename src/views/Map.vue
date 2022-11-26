@@ -18,6 +18,9 @@
     </div>
     <FormDialog></FormDialog>
     <div class="singout"><el-button type="primary" @click="singOut">退出</el-button></div>
+    <div class="bar">
+      <el-button size="small" plain @click="reStore"><i class="el-icon-refresh" style="font-size: 13px;"></i></el-button>
+    </div>
   </div>
 </template>
 
@@ -85,6 +88,9 @@ export default {
     position:absolute;
     top: 40px;
     right:20px;
+  }
+  .bar{
+    top:80%;
   }
 }
 </style>
