@@ -57,11 +57,11 @@ export default {
             children: [
               {
                 text: "测距",
-                click: "",
+                click: "measureLine",
               },
               {
                 text: "测面",
-                click: "",
+                click: "measurePolygon",
               },
             ],
           },
@@ -70,7 +70,22 @@ export default {
     };
   },
   methods: {
-    popChildenClick(row) {},
+    popChildenClick(row) {
+      if(row.click){
+        switch (row.click){
+          case "measureLine":
+            this.$tMap.selectClickObj&&this.$tMap.selectClickObj.setActive(false)
+            this.$tMap.measureLine(featureStyle.measureLine)
+          break
+          case "measurePolygon":
+            this.$tMap.selectClickObj&&this.$tMap.selectClickObj.setActive(false)
+          this.$tMap.measurePolygon(featureStyle.measurePolygon)
+          break
+          default:
+          break
+        }
+      }
+    },
     popParentClick(row) {
       console.log(row);
       if (row.click) {
