@@ -56,6 +56,9 @@ export default {
     singOut(){
       
       this.$router.push("/login")
+    },
+     reStore(){
+      this.$tMap.reStore()
     }
   },
   beforeDestroy(){
