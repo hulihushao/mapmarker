@@ -70,7 +70,7 @@ export default {
     };
   },
   methods: {
-    popChildenClick(row) {
+    popChildenClick({row}) {
       if(row.click){
         switch (row.click){
           case "measureLine":
