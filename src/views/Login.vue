@@ -76,8 +76,8 @@ export default {
       identifyCode: "",
       identifyCodes: "0123456789abcdwerwshdjeJKDHRJHKOOPLMKQMAPGIS", //随便
       formLogin: {
-        username: "" /* admin */,
-        password: "" /* 123abc!! */,
+        username: "admin" /* admin */,
+        password: "123456" /* 123abc!! */,
         check: "",
       },
       rules: {
@@ -98,7 +98,7 @@ export default {
         check: [
           {
             validator: (rule, value, callback) => {
-              ischeck(rule, value, callback, this.identifyCode);
+              //ischeck(rule, value, callback, this.identifyCode);
             },
             trigger: "blur",
             required: true,
