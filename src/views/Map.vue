@@ -93,6 +93,8 @@ export default {
     right:20px;
   }
   .bar{
+    position:absolute;
+    right:5%;
     top:80%;
   }
 }
