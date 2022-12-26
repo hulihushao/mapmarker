@@ -13,7 +13,7 @@
       :visible.sync="dialogVisible"
       append-to-body @close="closeDia"
     >
-      <Upload :featureData="featureData" ></Upload>
+      <Upload :featureData="featureData" style="min-height:250px;max-height:500px"></Upload>
       <!-- <div slot="footer" class="dialog-footer">
         <el-button @click="closeDia">取 消</el-button>
         <el-button type="primary" @click="$emit('closeDialog')"
