@@ -28,11 +28,14 @@
             slot="reference"
             @mouseover="showDescribe(index, item)"
           >
-            <el-image
+            <el-image v-if="!item.url"
               class="img-content"
               :src="getimgs(item)"
               :preview-src-list="srcList"
             ></el-image>
+            <div v-else class="imgs">
+              <img :src="item.url" alt="" />
+            </div>
             <div class="toolbox">
               <i
                 class="el-icon-download img-download"
@@ -130,6 +133,7 @@ export default {
         return;
       }
       this.uploading = true;
+      this.imgs.push({ url: URL.createObjectURL(file.raw) });
       let params = {
         relPoint: this.featureData.encodeStr,
         command: "",
@@ -197,7 +201,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   padding: 5px;
-  min-height: 310px;
   width: 560px;
   overflow-y: auto;
   .img-add {
@@ -207,6 +210,15 @@ export default {
       display: none;
     }
   }
+  .imgs {
+    width: 18vw;
+    height: 18vw;
+    border-radius: 5px;
+    margin-right: 0px;
+    overflow: hidden;
+    img {
+      width: 100%;
+   }
   .img-box {
     position: relative;
     border-radius: 5px;
@@ -215,6 +227,7 @@ export default {
     display: flex;
     align-items: center;
     margin-right: 10px;
+    margin:0 10px 10px 0;
     .img-content {
       width: 100px;
     }
