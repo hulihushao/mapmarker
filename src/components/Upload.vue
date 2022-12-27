@@ -29,6 +29,13 @@
             @mouseover="showDescribe(index, item)"
           >
             <div class="imgLoading" v-if="item.uploading"><i class="el-icon-loading" ></i></div>
+            <div class="imgLoading" v-if="!item.res">
+              <span
+                class="el-upload-list__item-preview"
+                @click="handleReupLoad(index, item)"
+                ><i class="el-icon-refresh"></i
+              ></span>
+            </div>
             <el-image v-if="!item.url"
               class="img-content"
               :src="getimgs(item)"
@@ -38,10 +45,11 @@
               <img :src="item.url" alt="" />
             </div>
             <div class="toolbox">
-              <i
+              <i v-if="item.res && !item.uploading"
                 class="el-icon-download img-download"
                 @click="handleDownload(index, item)"
               ></i>
+              <i></i>
               <i
                 class="el-icon-close img-close"
                 @click="handleRemove(index, item)"
@@ -134,7 +142,20 @@ export default {
         return;
       }
       this.uploading = true;
-      this.imgs.push({ url: URL.createObjectURL(file.raw) ,uploading:true});
+      let getfs = this.imgs.filter((item) => item.uid == file.uid);
+      if (!getfs.length) {
+        this.imgs.push({
+        url: URL.createObjectURL(file.raw),
+          uploading: true,
+          uid: file.uid,
+          file: file,
+          res: true,
+          visible: false,
+        });
+      }else{
+        this.imgs[index].uploading=true
+        this.imgs[index].res=true
+      }
       let params = {
         relPoint: this.featureData.encodeStr,
         command: "",
@@ -152,6 +173,12 @@ export default {
           }
         })
         .catch((err) => {
+          let fs = this.imgs.filter((item) => item.uid == file.uid);
+          if (fs.length) {
+            fs[0].uploading = false;
+            fs[0].res = false;
+            fs[0].visible = false;
+          }
           this.$message.error("上传失败！");
           this.uploading = false;
         });
@@ -194,6 +221,9 @@ export default {
     closeDescribe(index, item) {
       item.visible = false;
     },
+    handleReupLoad(index, item){
+      this.handlePreview(item.file,null,index)
+    }
   },
 };
 </script>
@@ -201,7 +231,6 @@ export default {
 .image-body {
   display: flex;
   flex-wrap: wrap;
-  padding: 5px;
   width: 560px;
   overflow-y: auto;
   .img-add {
@@ -238,6 +267,7 @@ export default {
       color:#fff;
       text-align: center;
       line-height: 18vw;
+      border-radius: 5px;
     }
     .img-content {
       width: 100px;
