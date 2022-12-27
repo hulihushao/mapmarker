@@ -134,7 +134,7 @@ export default {
         return;
       }
       this.uploading = true;
-      this.imgs.push({ url: URL.createObjectURL(file.raw) });
+      this.imgs.push({ url: URL.createObjectURL(file.raw) ,uploading:true});
       let params = {
         relPoint: this.featureData.encodeStr,
         command: "",
