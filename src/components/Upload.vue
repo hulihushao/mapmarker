@@ -28,6 +28,7 @@
             slot="reference"
             @mouseover="showDescribe(index, item)"
           >
+            <div class="imgLoading" v-if="item.uploading"><i class="el-icon-loading" ></i></div>
             <el-image v-if="!item.url"
               class="img-content"
               :src="getimgs(item)"
@@ -228,6 +229,16 @@ export default {
     align-items: center;
     margin-right: 10px;
     margin:0 10px 10px 0;
+    .imgLoading{
+      background:rgba(0,4,4,.5);
+      font-size:26px;
+      width:100%;
+      height:100%;
+      position:absolute;
+      color:#fff;
+      text-align: center;
+      line-height: 18vw;
+    }
     .img-content {
       width: 100px;
     }
