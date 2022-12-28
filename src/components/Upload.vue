@@ -24,7 +24,7 @@
             >
           </div>
           <div
-            class="img-box"
+            class="img-box animate__animated animate__fadeInDown"
             slot="reference"
             @mouseover="showDescribe(index, item)"
           >
@@ -42,7 +42,8 @@
               :preview-src-list="srcList"
             ></el-image>
             <div v-else class="imgs">
-              <img :src="item.url" alt="" />
+              <video v-if="item.type=='mp4'" width="100%" :src="item.url" autoplay/>
+              <img v-else :src="item.url" alt="" />
             </div>
             <div class="toolbox">
               <i v-if="item.res && !item.uploading"
@@ -144,6 +145,7 @@ export default {
       this.uploading = true;
       let getfs = this.imgs.filter((item) => item.uid == file.uid);
       if (!getfs.length) {
+        setTimeout(()=>{
         this.imgs.push({
         url: URL.createObjectURL(file.raw),
           uploading: true,
@@ -151,7 +153,8 @@ export default {
           file: file,
           res: true,
           visible: false,
-        });
+          type:file.name.split(".")[file.name.split(".").length-1],
+        });},100)
       }else{
         this.imgs[index].uploading=true
         this.imgs[index].res=true
