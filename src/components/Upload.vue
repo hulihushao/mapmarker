@@ -29,7 +29,7 @@
             @mouseover="showDescribe(index, item)"
           >
             <div class="imgLoading" v-if="item.uploading"><i class="el-icon-loading" ></i></div>
-            <div class="imgLoading" v-if="!item.res">
+            <div class="imgLoading" v-if="!item.res&&!item.uploading">
               <span
                 class="el-upload-list__item-preview"
                 @click="handleReupLoad(index, item)"
