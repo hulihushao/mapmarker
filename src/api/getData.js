@@ -14,8 +14,10 @@ export default {
   getPic(params){
     return request('/api/map-base/all-pic','get',params)
   },
-  postPic(data){
-    return request('/api/map-base/add-pic','post',data)
+  postPic(data,progress){
+    return request('/api/map-base/add-pic','post',data, {
+                    "Content-Type": "multipart/form-data",},progress
+)
   },
   postPoint(data){
     return request('/api/map-base/add-point','post',data)
