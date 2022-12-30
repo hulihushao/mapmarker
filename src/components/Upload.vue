@@ -28,7 +28,10 @@
             slot="reference"
             @mouseover="showDescribe(index, item)"
           >
-            <div class="imgLoading" v-if="item.uploading"><i class="el-icon-loading" ></i></div>
+            <div class="imgLoading" v-if="item.uploading">
+              <b style="font-size:12px;position:absolute;left:0;right:0;:auto">{{item.jd}}%</b>
+              <i style="font-size:50px;position:relative;" class="el-icon-loading"></i>           
+            </div>
             <div class="imgLoading" v-if="!item.res&&!item.uploading">
               <span
                 class="el-upload-list__item-preview"
