@@ -277,6 +277,7 @@ export default {
       text-align: center;
       line-height: 18vw;
       border-radius: 5px;
+      line-height:18vw;
     }
     .img-content {
       width: 100px;
