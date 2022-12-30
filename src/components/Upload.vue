@@ -169,7 +169,10 @@ export default {
         newfile.append(item, params[item]);
       }
       this.$httpRequest
-        .postPic(newfile)
+        .postPic(newfile,(e)=>{
+          const { loaded, total } = e
+          let fs = this.imgs.filter((item) => item.uid == file.uid);
+          fs[0].jd = ((loaded / total) * 100) | 0)
         .then((res) => {
           if (res.code == 200) {
             this.getPic();
