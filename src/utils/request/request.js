@@ -33,7 +33,7 @@ httpRequest.interceptors.response.use(
   }
 )
 
-let $httpRequest = (url, method='get', data, headers) => {
+let $httpRequest = (url, method='get', data, headers,progress) => {
   let params = {};
   if (method == "get") {
     params = {
@@ -57,6 +57,9 @@ let $httpRequest = (url, method='get', data, headers) => {
       };
     }
   }
+  if(progress){
+    params.onUploadProgress=progress
+  }  
   return httpRequest(params);
 };
 export default $httpRequest;
