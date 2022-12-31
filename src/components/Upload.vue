@@ -245,8 +245,7 @@ export default {
       this.imgs.forEach((item)=>{
         item.isShowActions=false
       })
-       let fs = this.imgs.filter((item) => item.uid == it.uid);
-      fs[0].isShowActions=true
+      it.isShowActions=true
 
      }
    },
