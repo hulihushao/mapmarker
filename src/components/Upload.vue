@@ -85,15 +85,18 @@
         <div slot="file" slot-scope="{ file }"></div>
       </el-upload>
     </div>
+    <transition name="el-fade-in-linear"><el-image-viewer style="z-index:999999" v-if="showViewer" :on-close="closeViewer" :url-list="srcList" /></transition>
   </div>
 </template>
 <script>
+import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
 export default {
   props: {
     featureData: {
       type: Object,
     },
   },
+  components:{ElImageViewer},
   data() {
     return {
       imgs: [
@@ -102,6 +105,7 @@ export default {
       srcList: [], // 浏览数据  ['http:...jpg']
       disabled: false,
       uploading: false,
+      showViewer: false,
     };
   },
   computed: {},
@@ -233,6 +237,7 @@ export default {
       this.imgs.forEach((item) => {
         item.visible = false;
       });
+      if (!this.imgs[index].res) return;
       this.imgs[index].visible = true;
     },
     closeDescribe(index, item) {
@@ -246,8 +251,14 @@ export default {
         item.isShowActions=false
       })
       it.isShowActions=true
+     },
+     handlePreviewPic(index,item){
+      this.showViewer=true
 
-     }
+    },
+    closeViewer() {
+       this.showViewer = false
+    }
    },
 };
 </script>
