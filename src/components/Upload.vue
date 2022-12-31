@@ -26,7 +26,7 @@
           <div
             class="img-box animate__animated animate__fadeInDown"
             slot="reference"
-            @mouseover="showDescribe(index, item)"
+            @mouseover="showDescribe(index, item);showActions(index,item)"
           >
             <div class="imgLoading" v-if="item.uploading">
               <b style="font-size:12px;position:absolute;left:0;right:0;:auto">{{item.jd}}%</b>
@@ -48,6 +48,14 @@
               <video v-if="item.type=='mp4'" width="100%" :src="item.url" autoplay/>
               <img v-else :src="item.url" alt="" />
             </div>
+            <transition name="el-fade-in-linear">
+
+<div class="actions" v-show="item.res&&!item.uploading&&item.isShowActions">
+  <span><i class="el-icon-zoom-in"></i></span>
+  <span><i class="el-icon-download"></i></span>
+  <span><i class="el-icon-delete"></i></span>
+</div>
+</transition>
             <div class="toolbox">
               <i v-if="item.res && !item.uploading"
                 class="el-icon-download img-download"
@@ -232,8 +240,16 @@ export default {
     },
     handleReupLoad(index, item){
       this.handlePreview(item.file,null,index)
-    }
-  },
+    },
+    showActions(index,it){
+      this.imgs.forEach((item)=>{
+        item.isShowActions=false
+      })
+       let fs = this.imgs.filter((item) => item.uid == it.uid);
+      fs[0].isShowActions=true
+
+     }
+   },
 };
 </script>
 <style lang="scss">
@@ -278,9 +294,35 @@ export default {
       line-height: 18vw;
       border-radius: 5px;
       line-height:18vw;
+      i{
+
+        line-height:18vw;
+        &:hover {
+          cursor: pointer;        
+        }
+      }
     }
     .img-content {
       width: 100px;
+    }
+    .actions{
+
+      width:calc(100% - 10px);
+      height:calc(100% - 10px);
+      display:flex;
+      justify-content:space-around;
+      align-items:center;
+      position:absolute;
+      padding:5px;
+      background:rgba(0, 4, 4, 0.5);
+      color:#fff;
+      border-radius:5px;
+      i{
+        &:hover {
+          cursor: pointer;
+        }
+      }
+ 
     }
     .toolbox {
       position: absolute;
