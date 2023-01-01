@@ -17,7 +17,7 @@
       <div id="popup-content"></div>
     </div>
     <FormDialog></FormDialog>
-    <div class="singout"><el-button type="primary" @click="singOut">退出</el-button></div>
+    <User />
     <div class="bar">
       <el-button size="small" plain @click="reStore"><i class="el-icon-refresh" style="font-size: 13px;"></i></el-button>
     </div>
@@ -30,13 +30,13 @@ import featureStyle from "@/utils/config/featureStyle";
 import MapTool from "@/components/MapTool";
 import UploadPic from "@/components/UploadPic";
 import FormDialog from "@/components/FormDialog";
-
+import User from "@/components/User";
 export default {
   name: "Map",
   components: {
     UploadPic,
     MapTool,
-    FormDialog,
+    FormDialog,User
   },
   data() {
     return {};
@@ -53,10 +53,6 @@ export default {
     });
   },
   methods:{
-    singOut(){
-      
-      this.$router.push("/login")
-    },
      reStore(){
       this.$tMap.reStore()
     }
@@ -86,11 +82,6 @@ export default {
     position: absolute;
     bottom: 10px;
     right: 10px;
-  }
-  .singout{
-    position:absolute;
-    top: 40px;
-    right:20px;
   }
   .bar{
     position:absolute;
