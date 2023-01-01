@@ -51,10 +51,9 @@
             <transition name="el-fade-in-linear">
 
 <div class="actions" v-show="item.res&&!item.uploading&&item.isShowActions">
-  <span><i class="el-icon-zoom-in"></i></span>
-  <span><i class="el-icon-download"></i></span>
-  <span><i class="el-icon-delete"></i></span>
-</div>
+                <span @click="handlePreviewPic(index,item)"><i class="el-icon-zoom-in"></i></span>
+                <span @click="handleDownload(index, item)"><i class="el-icon-download"></i></span>
+                <span @click="handleRemove(index, item)"><i class="el-icon-delete"></i></span></div>
 </transition>
             <div class="toolbox">
               <i></i>
@@ -112,7 +111,9 @@ export default {
         item.visible = false;
       });
     });
-  },
+    this.imgs.forEach(item=>{
+      this.srcList.push(this.getimgs(item))
+    })  },
   methods: {
     getPic(params) {
       this.$httpRequest.getPic().then((res) => {
@@ -166,6 +167,7 @@ export default {
           visible: false,
           type:file.name.split(".")[file.name.split(".").length-1],
         });},100)
+        this.srcList.push(URL.createObjectURL(file.raw))
       }else{
         this.imgs[index].uploading=true
         this.imgs[index].res=true
@@ -250,7 +252,6 @@ export default {
      },
      handlePreviewPic(index,item){
       this.showViewer=true
-
     },
     closeViewer() {
        this.showViewer = false
