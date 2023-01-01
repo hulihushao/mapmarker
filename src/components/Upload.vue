@@ -57,12 +57,8 @@
 </div>
 </transition>
             <div class="toolbox">
-              <i v-if="item.res && !item.uploading"
-                class="el-icon-download img-download"
-                @click="handleDownload(index, item)"
-              ></i>
               <i></i>
-              <i
+              <i v-if="!item.res||item.uploading"
                 class="el-icon-close img-close"
                 @click="handleRemove(index, item)"
               ></i>
