@@ -19,10 +19,10 @@
         <el-form-item label="名称" prop="map_point_name">
           <el-input v-model="formLabelAlign.map_point_name"></el-input>
         </el-form-item>
-        <el-form-item label="备注">
+        <el-form-item label="备注" prop="comment">
           <el-input v-model="formLabelAlign.comment"></el-input>
         </el-form-item>
-        <el-form-item label="旅行时间">
+        <el-form-item label="旅行时间" prop="lxtime">
           <el-date-picker
             clearable
             v-model="formLabelAlign.lxtime"
