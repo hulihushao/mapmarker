@@ -130,6 +130,7 @@ export default {
     // 删除图片
     handleRemove(index, row) {
       this.imgs.splice(index, 1);
+      this.srcList.splice(index, 1);
       this.$
         .commonDelete(maj, min, param)
         .then((res) => {
