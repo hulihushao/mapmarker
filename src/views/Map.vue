@@ -8,6 +8,7 @@
 -->
 <template>
   <div id="mapCon">
+    <TimeData/>
     <div id="map"></div>
     <div id="mousePosition"></div>
     <MapTool />
@@ -31,12 +32,13 @@ import MapTool from "@/components/MapTool";
 import UploadPic from "@/components/UploadPic";
 import FormDialog from "@/components/FormDialog";
 import User from "@/components/User";
+import TimeData from "@/components/Time";
 export default {
   name: "Map",
   components: {
     UploadPic,
     MapTool,
-    FormDialog,User
+    FormDialog,User,TimeData
   },
   data() {
     return {};
