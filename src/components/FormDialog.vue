@@ -127,7 +127,11 @@ export default {
   },
   methods: {
     cancel() {
-      this.formLabelAlign={}
+      this.formLabelAlign={
+        map_point_name: "",
+        comment: "",
+        lxtime: ""
+      }
       //this.$refs.formdialog.resetFields();
       this.$store.commit("setShowFormDialog", false);
       this.loading = false;
