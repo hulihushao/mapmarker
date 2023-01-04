@@ -129,15 +129,36 @@ export default {
     },
     // 删除图片
     handleRemove(index, row) {
-      this.imgs.splice(index, 1);
-      this.srcList.splice(index, 1);
-      this.$
-        .commonDelete(maj, min, param)
-        .then((res) => {
-          this.$message.success("删除成功！");
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+        center: TextTrackCueList,
+      })
+        .then(async () => {
+          this.imgs.splice(index, 1);
+
+          this.srcList.splice(index, 1);
+          try {
+            this.$httpRequest
+              .deletePic(param)
+
+              .then((res) => {
+                this.$message.success("删除成功！");
+              })
+              .catch(() => {
+                this.$message.erroe("接口异常！");
+              });
+          } catch {
+            
+          }
         })
-        .catch(() => {
-          this.$message.erroe("接口异常！");
+        .catch((e) => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
         });
     },
     handleDownload(index,row){
