@@ -102,7 +102,9 @@ export default {
     width:100px;
     position:absolute;
     margin-top:-15px;
-    display:flex;justify-content:center;
+    display:flex;
+    justify-content:center;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   }
 }
 
