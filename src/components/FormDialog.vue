@@ -26,6 +26,7 @@
           <el-date-picker
             clearable
             v-model="formLabelAlign.lxtime"
+            value-format="yyyy-MM-dd"
             type="datetime"
             placeholder="选择日期时间"
             align="right"
