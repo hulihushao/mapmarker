@@ -95,7 +95,7 @@ export default {
   data() {
     return {
       imgs: [
-        { encode_str: "../../public/static/img/star", type_tail: ".png" },
+        { encode_str: "static/img/star", type_tail: ".png" },
       ],
       srcList: [], // 浏览数据  ['http:...jpg']
       disabled: false,
