@@ -1,25 +1,34 @@
 <template>
   <div id="time">
-    <div class="crayon-clock">
+    <transition name="el-fade-in-linear">
+    <div class="crayon-clock" v-if="showtime" @click="handleShowtime">
       <div class="crayon-clock-time">{{ time }}</div>
       <div class="crayon-clock-date">
         <span class="date">{{ date }}</span>
         <span class="week">{{ week }}</span>
       </div>
     </div>
+    </transition>
+    <transition name="el-fade-in-linear">
+    <div class="bp-clock" v-if="!showtime" @click="handleShowtime">
+      <clock size="80px" border="none" bg="radial-gradient(circle, #ecffe5, #fffbe1, #38ff91)"></clock>
+    </div>
+    </transition>
   </div>
 </template>
 
 <script>
+import Clock from 'vue-clock2'
 export default {
   name: "CrayonClock",
-  components: {},
+  components: {Clock},
   data() {
     return {
       time: "",
       date: "",
       week: "",
       timerHelper: false,
+      showtime:true,
     };
   },
   mounted() {
@@ -65,6 +74,9 @@ export default {
 
       this.week = week[cd.getDay()];
     },
+    handleShowtime(){
+      this.showtime=!this.showtime
+    }
   },
 };
 </script>
@@ -81,11 +93,17 @@ export default {
 */
   background: radial-gradient(
     ellipse at center,
-    rgba(10, 175, 230, 0.1) 70%,
+    rgba(10, 175, 230, 0.1) 0%,
     rgba(10, 175, 230, 0) 0%
   );
   background-size: 100%;
   border-radius: 10px;
+  .bp-clock{
+    width:100px;
+    position:absolute;
+    margin-top:-15px;
+    display:flex;justify-content:center;
+  }
 }
 
 .crayon-clock {
