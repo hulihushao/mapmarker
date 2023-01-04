@@ -126,7 +126,8 @@ export default {
   },
   methods: {
     cancel() {
-      this.$refs.formdialog.resetFields();
+      this.formLabelAlign={}
+      //this.$refs.formdialog.resetFields();
       this.$store.commit("setShowFormDialog", false);
       this.loading = false;
     },
