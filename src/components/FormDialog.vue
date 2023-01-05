@@ -26,7 +26,7 @@
           <el-date-picker
             clearable
             v-model="formLabelAlign.lxtime"
-            value-format="yyyy-MM-dd"
+            value-format="yyyy-MM-dd HH:m:s"
             type="datetime"
             placeholder="选择日期时间"
             align="right"
@@ -127,12 +127,16 @@ export default {
   },
   methods: {
     cancel() {
-      this.formLabelAlign={
+      /*this.formLabelAlign={
         map_point_name: "",
         comment: "",
         lxtime: ""
-      }
+      }*/
       //this.$refs.formdialog.resetFields();
+      Object.keys(this.formLabelAlign).forEach((key) => {
+
+        this.formLabelAlign[key] = "";
+      });
       this.$store.commit("setShowFormDialog", false);
       this.loading = false;
     },
