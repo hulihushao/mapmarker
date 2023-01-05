@@ -164,5 +164,9 @@ export default {
   },
   measurePolygon(styles,callback){
     mapObj.Tool.measuringSurface(styles.message, styles.style,callback)
+  },
+endMeasure(cbk){
+
+    mapObj.Tool.clearDraw(cbk)
   }
 };
