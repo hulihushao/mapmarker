@@ -63,6 +63,11 @@ export default {
                 text: "测面",
                 click: "measurePolygon",
               },
+              {
+
+                text:"取消测量",
+                click:"endMeasure"
+              }
             ],
           },
         ],
@@ -79,7 +84,11 @@ export default {
           break
           case "measurePolygon":
             this.$tMap.selectClickObj&&this.$tMap.selectClickObj.setActive(false)
-          this.$tMap.measurePolygon(featureStyle.measurePolygon)
+            this.$tMap.measurePolygon(featureStyle.measurePolygon)
+          break
+          case "endMeasure":
+            this.$tMap.endMeasure(()=>{})
+            this.$tMap.selectClickObj&&this.$tMap.selectClickObj.setActive(true)
           break
           default:
           break
