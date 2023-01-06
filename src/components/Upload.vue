@@ -28,9 +28,23 @@
             slot="reference"
             @mouseover="showDescribe(index, item);showActions(index,item)"
           >
-            <div class="imgLoading" v-if="item.uploading">
+            <!--<div class="imgLoading" v-if="item.uploading">
               <b style="height:100%;font-size:12px;position:absolute;left:0;right:0;margin:auto">{{item.jd}}%{{item.jd_num}}</b>
               <i style="font-size:50px;position:relative;" class="el-icon-loading"></i>           
+            </div>-->
+            <div class="imgLoading" v-if="item.uploading" style="display:flex;flex-direction: column;items-align:center;justify-content:center;">
+              <i
+                style="position:relative;font-size: 20px;top:-10px"
+                class="el-icon-loading"
+              ></i>
+              <b
+                style="
+                  font-size: 12px;
+position:absolute;height:50px;
+width:100%;text-align:center;
+                "
+                ><span style="">{{ item.jd }}%</span><span>{{item.jd_num}}</span></b
+              >
             </div>
             <div class="imgLoading" v-if="!item.res&&!item.uploading">
               <span
