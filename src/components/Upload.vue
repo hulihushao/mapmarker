@@ -330,6 +330,7 @@ export default {
       line-height: 18vw;
       border-radius: 5px;
       line-height:18vw;
+      overflow:hidden;
       i{
 
         line-height:18vw;
