@@ -208,6 +208,12 @@ export default {
           const { loaded, total } = e
           let fs = this.imgs.filter((item) => item.uid == file.uid);
           fs[0].jd = ((loaded / total) * 100) | 0)
+          let jd_num=loaded/1024
+         if(jd_num<1024){
+           fs[0].jd_num=jd_num.toFixed(2)+"KB"
+         }else{
+          fs[0].jd_num=(jd_num/1024).toFixed(2) +"MB"
+         })
         .then((res) => {
           if (res.code == 200) {
             this.getPic();
