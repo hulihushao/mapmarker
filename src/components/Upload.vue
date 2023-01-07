@@ -40,10 +40,17 @@
               <b
                 style="
                   font-size: 12px;
-position:absolute;height:90%;
-width:100%;text-align:center;
+                  position: absolute;
+                  height: 90%;
+                  width: 100%;
+                  display: flex;
+                  flex-wrap:wrap;
+                  flex-direction: column;
+
                 "
-                ><span style="">{{ item.jd }}%</span><span style="font-size:10px">{{item.jd_num}}</span></b
+                ><span style="height:17%">{{ item.speed }}</span
+                ><span style="height:17%">{{ item.jd }}%</span
+                ><span style="height:17%;">{{ item.jd_num }}</span></b
               >
             </div>
             <div class="imgLoading" v-if="!item.res&&!item.uploading">
@@ -217,6 +224,8 @@ export default {
       for (let item in params) {
         newfile.append(item, params[item]);
       }
+      let lastTime = 0; // 上一次计算时间
+      let lastSize = 0;
       this.$httpRequest
         .postPic(newfile,(e)=>{
           const { loaded, total } = e
@@ -228,7 +237,33 @@ export default {
          }else{
           fs[0].jd_num=(jd_num/1024).toFixed(2) +"MB"
          }
-        })
+          /* 计算间隔 */
+          const nowTime = new Date().getTime();
+          const intervalTime = (nowTime - lastTime) / 1000; // 时间单位为毫秒，需转化为秒
+          const intervalSize = loaded - lastSize;
+          let speed = 0;
+          /* 验证数据 */
+          if (lastTime == 0) {
+            lastTime = new Date().getTime();
+            lastSize = loaded;
+            speed = lastSize;
+          } else {
+            /* 重新赋值以便于下次计算 */
+            lastTime = nowTime;
+            lastSize = loaded;
+            speed = intervalSize / intervalTime;
+          }
+          let units = "b/s"; // 单位名称
+          speed = speed / 1024; //转为KB
+          if (speed < 1024) {
+            speed = parseFloat(speed.toFixed(2));
+            units = "k/s";
+          }
+          if (speed > 1024) {
+            speed = parseFloat((speed / 1024).toFixed(2));
+            units = "m/s";
+          }
+          fs[0].speed = speed + units;        })
         .then((res) => {
           if (res.code == 200) {
             this.getPic();
