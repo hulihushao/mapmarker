@@ -43,7 +43,7 @@
 position:absolute;height:50px;
 width:100%;text-align:center;
                 "
-                ><span style="">{{ item.jd }}%</span><span>{{item.jd_num}}</span></b
+                ><span style="">{{ item.jd }}%</span><span style="font-size:10px">{{item.jd_num}}</span></b
               >
             </div>
             <div class="imgLoading" v-if="!item.res&&!item.uploading">
