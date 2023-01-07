@@ -235,7 +235,7 @@ export default {
         .postPic(newfile,(e)=>{
           const { loaded, total } = e
           let fs = this.imgs.filter((item) => item.uid == file.uid);
-          fs[0].jd = ((loaded / total) * 100) | 0)
+          fs[0].jd = parseFloat((loaded / total*99.99).toFixed(2))
           let jd_num=loaded/1024
          if(jd_num<1024){
            fs[0].jd_num=jd_num.toFixed(2)+"KB"
