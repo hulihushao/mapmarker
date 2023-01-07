@@ -40,7 +40,7 @@
               <b
                 style="
                   font-size: 12px;
-position:absolute;height:50px;
+position:absolute;height:90%;
 width:100%;text-align:center;
                 "
                 ><span style="">{{ item.jd }}%</span><span style="font-size:10px">{{item.jd_num}}</span></b
