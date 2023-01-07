@@ -202,14 +202,19 @@ export default {
       if (!getfs.length) {
         setTimeout(()=>{
         this.imgs.push({
-        url: URL.createObjectURL(file.raw),
+          url: URL.createObjectURL(file.raw),
           uploading: true,
           uid: file.uid,
           file: file,
           res: true,
           visible: false,
-          type:file.name.split(".")[file.name.split(".").length-1],
-        });},100)
+          type: file.name.split(".")[file.name.split(".").length - 1],
+          jd: 0,
+          jd_num: 0,
+          speed: 0,
+          isShowActions: false,
+        });
+        },100)
         this.srcList.push(URL.createObjectURL(file.raw))
       }else{
         this.imgs[index].uploading=true
