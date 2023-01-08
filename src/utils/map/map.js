@@ -26,7 +26,8 @@ export default {
       (maps, map) => {
         window.$tMap = map.map;
         mapObj.Tool.addControl("Zoom");
-        mapObj.Tool.addControl("ZoomSlider");
+        //mapObj.Tool.addControl("ZoomSlider");
+        map.map.addControl(new ol.control.ZoomSlider());
         //  // 鼠标位置控件
         mapObj.Tool.addControl("MousePosition", {
           className: "", //坐标信息显示样式类名，默认是'custom-mouse-position'
