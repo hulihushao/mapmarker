@@ -20,7 +20,20 @@
     <FormDialog></FormDialog>
     <User />
     <div class="bar">
-      <el-button size="small" plain @click="reStore"><i class="el-icon-refresh" style="font-size: 13px;"></i></el-button>
+      <el-button
+        style="border: none; border-radius: 0"
+        size="small"
+        plain
+        @click="reStore"
+        ><i class="el-icon-refresh" style="font-size: 13px"></i
+      ></el-button>
+      <el-button
+        style="border: none; margin: 0; border-radius: 0"
+        size="small"
+        plain
+        @click="location"
+        ><i class="el-icon-place" style="font-size: 13px"></i
+      ></el-button>
     </div>
   </div>
 </template>
@@ -57,7 +70,27 @@ export default {
   methods:{
      reStore(){
       this.$tMap.reStore()
-    }
+    },
+    location() {
+      if (navigator.geolocation) {
+        //getCurrentPosition()中需要传入一个回调函数
+        navigator.geolocation.getCurrentPosition(
+          (location) => {
+            mapObj.Tool.setPanTo(
+              [location.coords.longitude, location.coords.latitude],
+              20,
+              () => {}
+            );
+
+          },
+          (err) => {
+            alert(1);
+          }
+        );
+      } else {
+        alert( "无法获取当前位置");
+      }
+    },
   },
   beforeDestroy(){
     this.$tMap.destory()
