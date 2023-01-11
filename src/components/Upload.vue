@@ -101,7 +101,7 @@
         <div slot="file" slot-scope="{ file }"></div>
       </el-upload>
     </div>
-    <transition name="el-fade-in-linear"><el-image-viewer style="z-index:999999" v-if="showViewer" :on-close="closeViewer" :url-list="srcList" /></transition>
+    <transition name="el-fade-in-linear"><el-image-viewer style="z-index:999999" v-if="showViewer" :on-close="closeViewer" :url-list="srcList" :initial-index="imgViewIndex"/></transition>
   </div>
 </template>
 <script>
@@ -122,6 +122,7 @@ export default {
       disabled: false,
       uploading: false,
       showViewer: false,
+      imgViewIndex:0,
     };
   },
   computed: {},
@@ -334,6 +335,7 @@ export default {
       it.isShowActions=true
      },
      handlePreviewPic(index,item){
+      this.imgViewIndex=index
       this.showViewer=true
     },
     closeViewer() {
