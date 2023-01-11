@@ -271,7 +271,12 @@ export default {
           }
           fs[0].speed = speed + units;        })
         .then((res) => {
-          if (res.code == 200) {
+          this.$message.success("上传成功！");
+          let fs = this.imgs.filter((item) => item.uid == file.uid);
+          fs[0].jd = 100;
+          setTimeout(()=>{
+          fs[0].res = true;
+          fs[0].uploading = false;},500)          if (res.code == 200) {
             this.getPic();
           }
         })
