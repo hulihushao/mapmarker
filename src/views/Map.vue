@@ -79,7 +79,9 @@ export default {
             mapObj.Tool.setPanTo(
               [location.coords.longitude, location.coords.latitude],
               20,
-              () => {}
+              () => {
+                 window.$tMap.getView().setRotation(0)
+              }
             );
 
           },
