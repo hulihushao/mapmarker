@@ -123,6 +123,7 @@ export default {
       uploading: false,
       showViewer: false,
       imgViewIndex:0,
+      controllers:[]
     };
   },
   computed: {},
@@ -151,8 +152,11 @@ export default {
     },
     // 删除图片
     handleRemove(index, row) {
+      if(this.imgs[index].uploading){
+        this.controllers[index-1].controller.abort()
+        return
+      }
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
@@ -200,7 +204,9 @@ export default {
       }
       this.uploading = true;
       let getfs = this.imgs.filter((item) => item.uid == file.uid);
+      let controller=new AbortController()
       if (!getfs.length) {
+        this.controllers.push({uid:file.uid,controller});
         setTimeout(()=>{
         this.imgs.push({
           url: URL.createObjectURL(file.raw),
@@ -218,8 +224,12 @@ export default {
         },100)
         this.srcList.push(URL.createObjectURL(file.raw))
       }else{
-        this.imgs[index].uploading=true
-        this.imgs[index].res=true
+        this.imgs[index].uploading = true;
+        this.imgs[index].res = false;
+        this.imgs[index].jd_num = 0;
+        this.imgs[index].speed=0
+        let fc=this.controllers.filter((item)=>item.uid==file.uid)
+        fc[0].controller=controller
       }
       let params = {
         relPoint: this.featureData.encodeStr,
@@ -233,7 +243,7 @@ export default {
       let lastTime = 0; // 上一次计算时间
       let lastSize = 0;
       this.$httpRequest
-        .postPic(newfile,(e)=>{
+        .postPic(newfile,{signal: controller.signal,onUploadProgress:(e)=>{
           const { loaded, total } = e
           let fs = this.imgs.filter((item) => item.uid == file.uid);
           fs[0].jd = parseFloat((loaded / total*99.99).toFixed(2))
@@ -279,7 +289,8 @@ export default {
           fs[0].uploading = false;},500)          if (res.code == 200) {
             this.getPic();
           }
-        })
+        }
+       })
         .catch((err) => {
           let fs = this.imgs.filter((item) => item.uid == file.uid);
           if (fs.length) {
@@ -287,7 +298,11 @@ export default {
             fs[0].res = false;
             fs[0].visible = false;
           }
-          this.$message.error("上传失败！");
+          if(err.message=="canceled"){
+            this.$message.warning("取消上传！");
+          }else{
+            this.$message.error("上传失败！");
+          }
           this.uploading = false;
         });
     },
