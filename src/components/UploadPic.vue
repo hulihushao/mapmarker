@@ -13,6 +13,7 @@
       :visible.sync="dialogVisible"
       append-to-body @close="closeDia"
     >
+      <PicActions @changeActive="changeActive"/>
       <div style="min-height:250px">
         <Upload :featureData="featureData" style="max-height:500px;"></Upload>
       </div>
@@ -28,6 +29,7 @@
 
 <script>
 import Upload from "@/components/Upload";
+import PicActions from "@/components/PicActions";
 export default {
   props: {
     dialogVisible: {
@@ -43,11 +45,12 @@ export default {
     },
   },
   components: {
-    Upload,
+    Upload,,PicActions
   },
   data() {
     return {
       imgList: [],
+      active:2
     };
   },
   created() {
@@ -58,6 +61,9 @@ export default {
       this.$emit("closeDialog");
       this.$EventBus.$emit('closeDialog')
     },
+    changeActive(num){
+      this.active=num
+    }
   },
 };
 </script>
