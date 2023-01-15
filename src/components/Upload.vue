@@ -111,6 +111,9 @@ export default {
     featureData: {
       type: Object,
     },
+    active:{
+      required:true
+    }
   },
   components:{ElImageViewer},
   data() {
