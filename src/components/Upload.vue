@@ -1,6 +1,6 @@
 <template>
   <div class="image-body">
-    <template v-if="imgs.length">
+    <template v-if="imgs.length&&active==1">
       <div v-for="(item, index) in imgs" :key="'bg-img' + index">
         <el-popover placement="top" trigger="manual" v-model="item.visible">
           <i
@@ -87,7 +87,10 @@
         </el-popover>
       </div>
     </template>
-    <div class="img-add">
+    <template v-if="active==2">
+      <List :imgs="imgs"/>
+    </template>
+        <div class="img-add">
       <el-upload
         action="#"
         list-type="picture-card"
@@ -106,6 +109,7 @@
 </template>
 <script>
 import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
+import List from "@/components/List";
 export default {
   props: {
     featureData: {
@@ -115,11 +119,12 @@ export default {
       required:true
     }
   },
-  components:{ElImageViewer},
+  components:{ElImageViewer,List},
   data() {
     return {
       imgs: [
-        { encode_str: "static/img/star", type_tail: ".png" },
+        { encode_str: "static/img/star", type_tail: ".png",name:"star.png", res: true,
+          isShowActions: false,},
       ],
       srcList: [], // 浏览数据  ['http:...jpg']
       disabled: false,
