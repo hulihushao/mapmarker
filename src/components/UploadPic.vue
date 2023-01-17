@@ -60,6 +60,7 @@ export default {
     closeDia() {
       this.$emit("closeDialog");
       this.$EventBus.$emit('closeDialog')
+      this.active=1
     },
     changeActive(num){
       this.active=num
