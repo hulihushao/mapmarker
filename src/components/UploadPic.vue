@@ -15,7 +15,7 @@
     >
       <PicActions @changeActive="changeActive"/>
       <div style="min-height:250px">
-        <Upload :featureData="featureData" :show="show" :active="active" style="max-height:500px;"></Upload>
+        <Upload :featureData="featureData" :show="show" :showUpload="showUpload" :active="active" style="max-height:500px;"></Upload>
       </div>
       <!-- <div slot="footer" class="dialog-footer">
         <el-button @click="closeDia">取 消</el-button>
@@ -52,6 +52,7 @@ export default {
       imgList: [],
       active:2,
       show: false,
+      showUpload:true
     };
   },
   created() {
@@ -67,11 +68,15 @@ export default {
     changeActive(num){
       if (num == 2) {
         this.show = true;
+        this.showUpload=false
         setTimeout(() => {
+          this.showUpload=true
           this.active = num;
+          
         }, 10);
       } else {
         this.show = false;
+        this.showUpload=true
         this.active = num;
       }
     }
