@@ -1,6 +1,6 @@
 <template>
   <div class="image-body">
-    <template v-if="imgs.length&&active==1">
+    <template v-if="imgs.length&&active==1&&!show">
       <div v-for="(item, index) in imgs" :key="'bg-img' + index">
         <el-popover placement="top" trigger="manual" v-model="item.visible">
           <i
