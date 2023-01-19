@@ -87,10 +87,14 @@
         </el-popover>
       </div>
     </template>
-    <template v-if="active==2">
+    <span v-if="show" style="width:100%;">
+     <transition mode="out-in" enter-active-class="animate__animated animate__fadeInDown" leave-active-class="">
+     <template v-if="active==2">
       <List :imgs="imgs"/>
-    </template>
-        <div class="img-add">
+     </template>
+     </transition>
+    </span>
+    <div class="img-add">
       <el-upload
         action="#"
         list-type="picture-card"
@@ -112,6 +116,10 @@ import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
 import List from "@/components/List";
 export default {
   props: {
+    show: {
+
+      type: Boolean,
+    },
     featureData: {
       type: Object,
     },
