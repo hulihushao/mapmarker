@@ -15,7 +15,7 @@
     >
       <PicActions @changeActive="changeActive"/>
       <div style="min-height:250px">
-        <Upload :featureData="featureData" style="max-height:500px;"></Upload>
+        <Upload :featureData="featureData" :show="show" :active="active" style="max-height:500px;"></Upload>
       </div>
       <!-- <div slot="footer" class="dialog-footer">
         <el-button @click="closeDia">取 消</el-button>
@@ -50,7 +50,8 @@ export default {
   data() {
     return {
       imgList: [],
-      active:2
+      active:2,
+      show: false,
     };
   },
   created() {
@@ -61,9 +62,18 @@ export default {
       this.$emit("closeDialog");
       this.$EventBus.$emit('closeDialog')
       this.active=1
+      this.show = false;
     },
     changeActive(num){
-      this.active=num
+      if (num == 2) {
+        this.show = true;
+        setTimeout(() => {
+          this.active = num;
+        }, 10);
+      } else {
+        this.show = false;
+        this.active = num;
+      }
     }
   },
 };
