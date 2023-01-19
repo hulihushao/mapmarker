@@ -94,7 +94,7 @@
      </template>
      </transition>
     </span>
-    <div class="img-add">
+    <div class="img-add" v-if="showUpload">
       <el-upload
         action="#"
         list-type="picture-card"
@@ -124,6 +124,9 @@ export default {
       type: Object,
     },
     active:{
+      required:true
+    },
+    showUpload:{
       required:true
     }
   },
