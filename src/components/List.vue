@@ -8,7 +8,9 @@
 -->
 <template>
   <div id="pic-list">
-    <el-card
+   <transition-group
+      enter-active-class="animate__animated animate__fadeInDown"
+    >    <el-card
       style="margin-bottom: 5px"
       :body-style="{
         padding: '0px',
@@ -72,6 +74,7 @@
         </p>
       </div>
     </el-card>
+    </transition-group>
   </div>
 </template>
 
