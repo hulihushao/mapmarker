@@ -68,7 +68,9 @@ export default {
     changeActive(num){
       if (num == 2) {
         this.show = true;
-        this.showUpload=false
+        if(this.active==1){
+          this.showUpload=false
+        }
         setTimeout(() => {
           this.showUpload=true
           this.active = num;
