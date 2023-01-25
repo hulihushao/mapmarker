@@ -7,9 +7,9 @@
  * @LastEditTime: 2022-06-02 16:16:52
 -->
 <template>
-  <div id="pic-actions-con">
+  <div id="pic-actions-con" :class="{newHeight:showPL}">
     <div id="pic-actions">
-      <i style="" class="iconfont icon-batch" @click="handlePL"></i>
+      <i style="" class="iconfont icon-batch" :class="{active:showPL}" @click="handlePL"></i>
       <div style="width: 40px; display: flex; justify-content: space-between">
         <i
           class="iconfont icon-liebiao1"
@@ -24,7 +24,7 @@
         ></i>
       </div>
     </div>
-    <div class="plBtn" v-show="showPL">
+    <div class="plBtn" :class="{showPLBtn:showPLBtn}" >
       <span>删除</span>
        <span>重传</span>
     </div>
@@ -47,6 +47,7 @@ export default {
       isActive1: true,
       isActive2: false,
       showPL: false,
+      showPLBtn:false
     };
   },
   created() {},
@@ -60,6 +61,7 @@ export default {
     },
     handlePL() {
       this.showPL = !this.showPL;
+      setTimeout(()=>{this.showPLBtn=!this.showPLBtn})
       this.$store.commit("setShowChecked",this.showPL)
     },
   },
@@ -67,22 +69,31 @@ export default {
 </script>
 
 <style lang="less" >
+.newHeight{
+    height:35px !important;
+  }
 #pic-actions-con {
   margin-bottom: 5px;
   border-bottom: 1px solid #ccc;
   padding: 0 10px 5px;
-  transition: all 5s;
+  transition: all .3s;
+  margin-top: -30px;
+  height:20px;
   #pic-actions {
-    margin-top: -30px;
-
     display: flex;
     justify-content: space-between;
-
     .active {
       color: #409eff;
     }
-    .plplBtn {
-    }
+    
   }
+  .plBtn {
+      transition: all .3s;
+      height:0;
+      overflow:hidden;
+    }
+    .showPLBtn{
+      height:20px
+    }
 }
 </style>
