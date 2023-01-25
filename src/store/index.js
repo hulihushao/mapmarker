@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     showFormDialog:false,
     position:[],
+    showChecked:false,
   },
   mutations: {
     setShowFormDialog(state,value){
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     setPosition(state,value){
       state.position=value
     },
+    setShowChecked(state,value){
+      state.showChecked=value
+    }
   },
   actions: {
   },
