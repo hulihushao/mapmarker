@@ -73,6 +73,7 @@
           </el-tooltip>
         </p>
       </div>
+      <el-checkbox v-show="showChecked" label=""></el-checkbox>
     </el-card>
     </transition-group>
   </div>
@@ -99,7 +100,11 @@ export default {
       isShowTooltip: false,
     };
   },
-  computed: {},
+  computed: {
+    showChecked(){
+      return this.$store.state.showChecked
+    }
+  },
   created() {},
   methods: {
     getimgs(item) {
