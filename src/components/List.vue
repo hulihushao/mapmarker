@@ -1,4 +1,5 @@
 <!--
+
  * @Descripttion: 
  * @version: 
  * @Author: sueRimn
@@ -8,73 +9,73 @@
 -->
 <template>
   <div id="pic-list">
-   <transition-group
+    <transition-group
       enter-active-class="animate__animated animate__fadeInDown"
-    >    <el-card
-      style="margin-bottom: 5px"
-      :body-style="{
-        padding: '0px',
-        display: 'flex',
-        'align-items': 'center',
-        margin: '5px',
-      }"
-      shadow="hover"
-      v-for="item in imgs"
-      :key="item.uid"
-      ><div class="img-content">
-        <video
-          v-if="item.type == 'mp4'"
-          width="100%"
-          :src="item.url"
-          autoplay
-        />
-        <el-image
-          ref="preview"
-          fit="contain"
-          :src="getimgs(item)"
-          :preview-src-list="srcList"
-        ></el-image>
-      </div>
-      <div class="text">
-        <p>
-          <el-tooltip
-            class="item"
-            effect="dark"
-            :disabled="(item.name || item.file.name).length > 19 ? false : true"
-            :content="item.name || item.file.name"
-            placement="top"
-          >
-            <div
-              slot="content"
-              v-if="(item.name || item.file.name).length > 30"
-            >
-              {{ (item.name || item.file.name).substring(0, 30) }}<br />{{
-                (item.name || item.file.name).substring(30, 63)
-              }}<br v-if="(item.name || item.file.name).length > 60" />{{
-                (item.name || item.file.name).substring(63)
-              }}
-            </div>
-            <span ref="refName" @mouseover="onMouseOver('refName')"
-              >名称:{{ item.name || item.file.name }}
-            </span>
-          </el-tooltip>
-        </p>
+    >
+      <el-card
+        style="margin-bottom: 5px"
+        :body-style="{
+          padding: '0px',
+          display: 'flex',
+          'align-items': 'center',
+          margin: '5px',
+        }"
+        shadow="hover"
+        v-for="item in imgs"
+        :key="item.uid"
+        ><div class="img-content">
+          <video
+            v-if="item.type == 'mp4'"
+            width="100%"
+            :src="item.url"
+            autoplay
+          />
+          <el-image ref="preview" fit="contain" :src="getimgs(item)"></el-image>
+        </div>
+        <div class="text">
+          <div>
+            <p>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :disabled="
+                  (item.name || item.file.name).length > 19 ? false : true
+                "
+                :content="item.name || item.file.name"
+                placement="top"
+              >
+                <div
+                  slot="content"
+                  v-if="(item.name || item.file.name).length > 30"
+                >
+                  {{ (item.name || item.file.name).substring(0, 30) }}<br />{{
+                    (item.name || item.file.name).substring(30, 63)
+                  }}<br v-if="(item.name || item.file.name).length > 60" />{{
+                    (item.name || item.file.name).substring(63)
+                  }}
+                </div>
+                <span ref="refName" @mouseover="onMouseOver('refName')"
+                  >名称：{{ item.name || item.file.name }}
+                </span>
+              </el-tooltip>
+            </p>
 
-        <p>大小:{{ getSize(item) }}</p>
-        <p>
-          <el-tooltip
-            class="item"
-            effect="dark"
-            :disabled="item.command ? false : true"
-            :content="item.command"
-            placement="top"
-          >
-            <span> 备注:{{ item.command }} </span>
-          </el-tooltip>
-        </p>
-      </div>
-      <el-checkbox v-show="showChecked" label=""></el-checkbox>
-    </el-card>
+            <p>大小：{{ getSize(item) }}</p>
+            <p>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :disabled="item.command ? false : true"
+                :content="item.command"
+                placement="top"
+              >
+                <span> 备注：{{ item.command }} </span>
+              </el-tooltip>
+            </p>
+          </div>
+          <el-checkbox v-show="showChecked" label=""></el-checkbox>
+        </div>
+      </el-card>
     </transition-group>
   </div>
 </template>
@@ -87,25 +88,21 @@ export default {
       required: true,
       default: [],
     },
-    featureData: {
-      type: Object,
-      default: () => {
-        return {};
-      },
-    },
   },
   components: {},
   data() {
     return {
       isShowTooltip: false,
+
     };
   },
   computed: {
-    showChecked(){
-      return this.$store.state.showChecked
-    }
+    showChecked() {
+      return this.$store.state.showChecked;
+    },
   },
   created() {},
+  mounted() {},
   methods: {
     getimgs(item) {
       if (!item.url) {
@@ -146,7 +143,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 #pic-list {
   width: 90%;
   .img-content {
@@ -162,14 +159,20 @@ export default {
     }
   }
   .text {
-    margin-left: 10px;
+    div {
+      margin-left: 10px;
+
+      height: 15vw;
+      border: 1px solid #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0px;
+    }
     width: 90%;
-    height: 15vw;
-    border: 1px solid #fff;
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    padding: 0px;
+    align-items: center;
     p {
     }
     p:nth-child(1),
