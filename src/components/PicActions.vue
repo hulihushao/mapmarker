@@ -25,8 +25,8 @@
       </div>
     </div>
     <div class="plBtn" :class="{showPLBtn:showPLBtn}" >
-      <span>删除</span>
-       <span>重传</span>
+      <el-button type="text" size="mini" style="margin:0 12px;padding:0">删除</el-button>
+       <el-button type="text" size="mini"  style="margin:0;padding:0">重传</el-button>
     </div>
   </div>
 </template>
@@ -70,12 +70,12 @@ export default {
 
 <style lang="less" >
 .newHeight{
-    height:35px !important;
+    height:40px !important;
   }
 #pic-actions-con {
   margin-bottom: 5px;
   border-bottom: 1px solid #ccc;
-  padding: 0 10px 5px;
+  padding: 0 10px 0px;
   transition: all .3s;
   margin-top: -30px;
   height:20px;
@@ -91,9 +91,11 @@ export default {
       transition: all .3s;
       height:0;
       overflow:hidden;
+      display:flex;
     }
     .showPLBtn{
-      height:20px
+      height:15px;
+      padding:5px 0;
     }
 }
 </style>
