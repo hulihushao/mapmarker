@@ -59,8 +59,13 @@
                 </span>
               </el-tooltip>
             </p>
-
-            <p>大小：{{ getSize(item) }}</p>
+            <p>
+              <span style="width: 100px; display: inline-block"
+                >大小：{{ getSize(item) }}</span
+              ><span
+                >状态：<span :style="{ color: getZT(item).color }">{{getZT(item).zt }}</span></span
+              >
+            </p>
             <p>
               <el-tooltip
                 class="item"
@@ -138,6 +143,21 @@ export default {
       } else {
         this.isShowTooltip = true;
       }
+    },
+    getZT(item) {
+      let zt = "";
+      let color=""
+      if (item.res && !item.uploading) {
+        zt = "-";
+        color="green"
+      } else if (item.uploading) {
+        zt = "上传中...";
+        color="#ccc"
+      } else if (!item.res && !item.uploading) {
+        zt = "上传失败";
+        color="red"
+      }
+      return {zt,color};
     },
   },
 };
