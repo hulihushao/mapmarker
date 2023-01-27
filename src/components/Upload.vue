@@ -70,12 +70,15 @@
               <img v-else :src="item.url" alt="" />
             </div>
             <transition name="el-fade-in-linear">
-
-<div class="actions" v-show="item.res&&!item.uploading&&item.isShowActions">
+             <div class="actions" v-show="item.res&&!item.uploading&&item.isShowActions">
                 <span @click="handlePreviewPic(index,item)"><i class="el-icon-zoom-in"></i></span>
                 <span @click="handleDownload(index, item)"><i class="el-icon-download"></i></span>
-                <span @click="handleRemove(index, item)"><i class="el-icon-delete"></i></span></div>
-</transition>
+                <span @click="handleRemove(index, item)"><i class="el-icon-delete"></i></span>
+             </div>
+            </transition>
+            <div v-show="showChecked" style="position:absolute;bottom:-1px;right:2px;">
+              <el-checkbox label=""></el-checkbox> 
+            </div>
             <div class="toolbox">
               <i></i>
               <i v-if="!item.res||item.uploading"
@@ -145,7 +148,11 @@ export default {
       controllers:[]
     };
   },
-  computed: {},
+  computed: {
+    showChecked(){
+      return this.$store.state.showChecked
+    }
+  },
   watch:{
     active(){
       this.imgs.forEach((item) => {
