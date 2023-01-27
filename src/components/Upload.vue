@@ -146,6 +146,14 @@ export default {
     };
   },
   computed: {},
+  watch:{
+    active(){
+      this.imgs.forEach((item) => {
+        item.visible = false;
+        item.isShowActions=false
+      })
+    }
+  },
   created() {
     this.getPic();
     this.$EventBus.$on("closeDialog", () => {
@@ -155,7 +163,8 @@ export default {
     });
     this.imgs.forEach(item=>{
       this.srcList.push(this.getimgs(item))
-    })  },
+    })
+  },
   methods: {
     getPic(params) {
       this.$httpRequest.getPic().then((res) => {
