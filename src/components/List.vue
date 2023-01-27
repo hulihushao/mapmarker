@@ -30,7 +30,7 @@
             :src="item.url"
             autoplay
           />
-          <el-image ref="preview" fit="contain" :src="getimgs(item)"></el-image>
+          <el-image ref="preview" fit="contain" :src="getimgs(item)" :preview-src-list="[item.url||getimgs(item)]"></el-image>
         </div>
         <div class="text">
           <div>
