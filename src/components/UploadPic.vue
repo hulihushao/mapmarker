@@ -14,8 +14,8 @@
       append-to-body @close="closeDia"
     >
       <PicActions @changeActive="changeActive"/>
-      <div style="min-height:250px">
-        <Upload :featureData="featureData" :show="show" :showUpload="showUpload" :active="active" style="max-height:500px;"></Upload>
+      <div style="min-height:25vh">
+        <Upload :featureData="featureData" :show="show" :showUpload="showUpload" :active="active" style="max-height:50vh;"></Upload>
       </div>
       <!-- <div slot="footer" class="dialog-footer">
         <el-button @click="closeDia">取 消</el-button>
