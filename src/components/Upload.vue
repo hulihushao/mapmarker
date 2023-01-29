@@ -342,12 +342,20 @@ export default {
               visible:false,
               isShowActions:false,
             }
+          let fr = new FileReader()
+          fr.readAsDataURL(file.raw)
           if(localFiles){
             localFiles=JSON.parse(localFiles)
-            localFiles.push(fileData)
-            localStorage.setItem("localFiles",JSON.stringify(localFiles))
+            fr.onload = function(e) {
+              fileData.url=e.target.result
+            	localFiles.push(fileData)
+              localStorage.setItem("localFiles",JSON.stringify(localFiles))
+            }
           }else{
-            localStorage.setItem("localFiles",JSON.stringify([fileData]))
+            fr.onload = function(e) {
+              fileData.url=e.target.result
+              localStorage.setItem("localFiles",JSON.stringify([fileData]))
+              }
           }
           this.$message.success("上传成功！");
           let fs = this.imgs.filter((item) => item.uid == file.uid);
