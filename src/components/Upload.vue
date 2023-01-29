@@ -337,7 +337,7 @@ export default {
               uid:file.uid,
               url: URL.createObjectURL(file.raw),
               name:file.name,
-              size:{file:file.size},
+              file:{size:file.size},
               res:true,
               visible:false,
               isShowActions:false,
@@ -345,6 +345,7 @@ export default {
           if(localFiles){
             localFiles=JSON.parse(localFiles)
             localFiles.push(fileData)
+            localStorage.setItem("localFiles",JSON.stringify(localFiles))
           }else{
             localStorage.setItem("localFiles",JSON.stringify([fileData]))
           }
