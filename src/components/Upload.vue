@@ -163,6 +163,13 @@ export default {
   },
   created() {
     this.getPic();
+    //模拟获取数据
+    //localStorage.removeItem("localFiles")
+    let localFiles=localStorage.getItem("localFiles")
+    if(localFiles){
+      localFiles=JSON.parse(localFiles)
+      this.imgs=[...this.imgs,...localFiles]
+    }
     this.$EventBus.$on("closeDialog", () => {
       this.imgs.forEach((item) => {
         item.visible = false;
@@ -199,8 +206,15 @@ export default {
       })
         .then(async () => {
           this.imgs.splice(index, 1);
-
           this.srcList.splice(index, 1);
+          //模拟删除
+          let localFiles=localStorage.getItem("localFiles")
+    if(localFiles){
+      localFiles=JSON.parse(localFiles)
+      let i=localFiles.findIndex((item)=>item.uid==del[0].uid)
+      localFiles.splice(i,1)
+      localStorage.setItem("localFiles",JSON.stringify(localFiles))
+    }
           try {
             this.$httpRequest
               .deletePic(param)
@@ -316,6 +330,24 @@ export default {
           }
           fs[0].speed = speed + units;        })
         .then((res) => {
+          try{
+          //模拟上传存储
+          let localFiles=localStorage.getItem("localFiles")
+          let fileData={
+              uid:file.uid,
+              url: URL.createObjectURL(file.raw),
+              name:file.name,
+              size:{file:file.size},
+              res:true,
+              visible:false,
+              isShowActions:false,
+            }
+          if(localFiles){
+            localFiles=JSON.parse(localFiles)
+            localFiles.push(fileData)
+          }else{
+            localStorage.setItem("localFiles",JSON.stringify([fileData]))
+          }
           this.$message.success("上传成功！");
           let fs = this.imgs.filter((item) => item.uid == file.uid);
           fs[0].jd = 100;
@@ -325,6 +357,7 @@ export default {
             this.getPic();
           }
         }
+       }catch{}
        })
         .catch((err) => {
           let fs = this.imgs.filter((item) => item.uid == file.uid);
