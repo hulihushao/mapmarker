@@ -241,7 +241,11 @@ export default {
     },
     // 图片获取
     getimgs(item) {
-      return window.imgUrl + "/" + item.encode_str + item.type_tail;
+      if(!item.url){
+        return window.imgUrl + "/" + item.encode_str + item.type_tail;
+      }else{
+        return item.url
+      }
     },
     // 上传图片
     handlePreview(file, fileList) {
