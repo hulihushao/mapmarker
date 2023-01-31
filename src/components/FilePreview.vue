@@ -92,11 +92,11 @@
         </ul>
       </div>
       <!--下一个 -->
-      <div class="next" @click="onClickNext">
+      <div class="next" v-if="FilePresAll.length>1" @click="onClickNext">
         <i class="el-icon-arrow-right"></i>
       </div>
       <!-- 上一个 -->
-      <div class="previous" @click="onCLickPrevious">
+      <div class="previous" v-if="FilePresAll.length>1" @click="onCLickPrevious">
         <i class="el-icon-arrow-left"></i>
       </div>
       <!-- 关闭按钮 -->
