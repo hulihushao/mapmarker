@@ -193,36 +193,39 @@ export default {
   methods: {
     // 放大功能
     onClickEnlarge() {
-      let Target = document.getElementsByClassName("Target")[0];
-      let scale = Target.style.transform.match(/\d+(\.\d+)?/g);
-      if (scale) {
-        scale = scale * 1 + 0.2;
-      } else {
-        scale = 1.2;
-      }
-      Target.style.transform = `scale(${scale})`;
-      return;
-      Target.style.height = Target.height * 1.1 + "px";
-      Target.style.width = Target.width * 1.1 + "px";
+      this.Zooms("in");
     },
-
     // 缩小功能
     onClickNarrow() {
-      let Target = document.getElementsByClassName("Target")[0];
-      let scale = Target.style.transform.match(/\d+(\.\d+)?/g);
-
-      if (scale) {
-        scale = scale * 1 - 0.2;
-      } else {
-        scale = 0.8;
-      }
-      if (scale <= 0.2) scale = 0.2;
-      Target.style.transform = `scale(${scale})`;
-      return;
-      Target.style.height = Target.height / 1.1 + "px";
-      Target.style.width = Target.width / 1.1 + "px";
+      this.Zooms("out");
     },
-
+    Zooms(zoom) {
+      let Target = document.getElementsByClassName("Target")[0];
+      let transform = Target.style.transform;
+      let scales = Target.style.transform.match(/(\-|\+)?\d+(\.\d+)?/g);
+      let rotate = "";
+      let scale
+      if (zoom == "in") {
+        if (scales) {
+          scale = scales[0] * 1 + 0.2;
+        } else {
+          scale = 1.2;
+        }
+      } else {
+        if (scales) {
+          scale = scales[0] * 1 - 0.2;
+        } else {
+          scale = 0.8;
+        }
+        if (scale <= 0.2) scale = 0.2;
+      }
+      if (transform) {
+        if (transform.indexOf("rotate") > -1) {
+          rotate = transform.split(" ")[1];
+        }
+      }
+      Target.style.transform = `scale(${scale}) ${rotate}`;
+    },
     // 返回原图大小
     onClickReturnOriginal() {
       let Target = document.getElementsByClassName("Target")[0];
