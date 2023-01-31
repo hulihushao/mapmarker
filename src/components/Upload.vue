@@ -275,6 +275,7 @@ export default {
           file: file,
           res: true,
           visible: false,
+          checked:false,
           type: file.name.split(".")[file.name.split(".").length - 1],
           jd: 0,
           jd_num: 0,
