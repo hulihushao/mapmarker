@@ -77,7 +77,7 @@
              </div>
             </transition>
             <div v-show="showChecked" style="position:absolute;bottom:-1px;right:2px;">
-              <el-checkbox label=""></el-checkbox> 
+              <el-checkbox style="opacity:.7" v-model="item.checked" v-show="showChecked" label=""  @change="(value)=>{handleCheckedChange(value,item)}"></el-checkbox>
             </div>
             <div class="toolbox">
               <i></i>
@@ -93,7 +93,7 @@
     <span v-if="show" style="width:100%;">
      <transition mode="out-in" enter-active-class="animate__animated animate__fadeInDown" leave-active-class="">
      <template v-if="active==2">
-      <List :imgs="imgs"/>
+      <List :imgs="imgs" :srcList="srcList"/>
      </template>
      </transition>
     </span>
@@ -175,7 +175,14 @@ export default {
         item.visible = false;
       });
     });
+    this.$EventBus.$on("CheckAll",val=>{
+        this.imgs.forEach(item=>{
+          item.checked=val
+        })
+
+    })
     this.imgs.forEach(item=>{
+      this.$set(item,"checked",false)
       this.srcList.push(this.getimgs(item))
     })
   },
@@ -441,6 +448,13 @@ export default {
     },
     closeViewer() {
        this.showViewer = false
+    },
+    handleCheckedChange(value,uid){
+      let fs=this.imgs.filter(item=>item.uid==uid)
+      if(fs.length){
+        fs.checked=value
+      }let checkeds=this.imgs.filter(it=>it.checked)
+      this.$EventBus.$emit("changeCheckAll",checkeds,this.imgs)
     }
    },
 };
