@@ -25,6 +25,15 @@
       </div>
     </div>
     <div class="plBtn" :class="{showPLBtn:showPLBtn}" >
+       <el-checkbox
+        size="mini"
+        border
+        style="border: none; margin-top: -4px; width: 60px"
+        :indeterminate="isIndeterminate"
+        v-model="checkAll"
+        @change="handleCheckAllChange"
+        >全选</el-checkbox
+      >
       <el-button type="text" size="mini" style="margin:0 12px;padding:0">删除</el-button>
        <el-button type="text" size="mini"  style="margin:0;padding:0">重传</el-button>
     </div>
@@ -47,10 +56,19 @@ export default {
       isActive1: true,
       isActive2: false,
       showPL: false,
-      showPLBtn:false
+      showPLBtn:false,
+      isIndeterminate: false,
+      checkAll: false,
     };
   },
-  created() {},
+  created() {
+    this.$EventBus.$on("changeCheckAll", (value,imgs) => {
+      let checkedCount = value.length;
+      this.checkAll = checkedCount === imgs.length;
+      this.isIndeterminate =
+        checkedCount > 0 && checkedCount < imgs.length;
+    });
+  },
   methods: {
     handleActive(num) {
       for (let i = 1; i < 3; i++) {
@@ -63,6 +81,10 @@ export default {
       this.showPL = !this.showPL;
       setTimeout(()=>{this.showPLBtn=!this.showPLBtn})
       this.$store.commit("setShowChecked",this.showPL)
+    },
+    handleCheckAllChange(val) {
+      this.isIndeterminate = false;
+      this.$EventBus.$emit("CheckAll",val)
     },
   },
 };
