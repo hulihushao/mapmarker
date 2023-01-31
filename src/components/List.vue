@@ -102,6 +102,9 @@ export default {
       required: true,
       default: [],
     },
+    srcList: {
+      type: Array,
+    },
   },
   components: {},
   data() {
