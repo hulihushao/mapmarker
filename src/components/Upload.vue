@@ -93,7 +93,7 @@
     <span v-if="show" style="width:100%;">
      <transition mode="out-in" enter-active-class="animate__animated animate__fadeInDown" leave-active-class="">
      <template v-if="active==2">
-      <List :imgs="imgs" :srcList="srcList"/>
+      <List :imgs="imgs" :srcList="srcList" @handleCheckedChange="handleCheckedChange"/>
      </template>
      </transition>
     </span>
