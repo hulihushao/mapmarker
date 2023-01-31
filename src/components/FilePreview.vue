@@ -42,10 +42,10 @@
           class="Target"
           controls="controls"
           width="1000"
-          height="500"
           :src="TragetObj.url"
           autoplay
           ref="videoref"
+          style="max-width:100%;transition:all .2s"
         >
           您的浏览器不支持。
         </video>
