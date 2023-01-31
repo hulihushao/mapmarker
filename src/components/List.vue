@@ -78,7 +78,16 @@
               </el-tooltip>
             </p>
           </div>
-          <el-checkbox v-show="showChecked" label=""></el-checkbox>
+          <el-checkbox
+            v-model="item.checked"
+            v-show="showChecked"
+            label=""
+            @change="
+              (value) => {
+                handleCheckedChange(value, item);
+              }
+            "
+          ></el-checkbox>
         </div>
       </el-card>
     </transition-group>
@@ -158,6 +167,13 @@ export default {
         color="red"
       }
       return {zt,color};
+    },
+    handleCheckedChange(value, item) {
+      //修改选中的状态
+      this.$emit("handleCheckedChange", value, item.uid);
+      //派发修改全选状态
+      let checkeds = this.imgs.filter((it) => it.checked);
+      this.$EventBus.$emit("changeCheckAll", checkeds, this.imgs);
     },
   },
 };
