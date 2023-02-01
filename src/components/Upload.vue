@@ -451,12 +451,21 @@ export default {
        this.showViewer = false
     },
     handleCheckedChange(value,uid){
+      //改变选中的checked
       let fs=this.imgs.filter(item=>item.uid==uid)
       if(fs.length){
         fs.checked=value
-      }let checkeds=this.imgs.filter(it=>it.checked)
+      }
+      //改变全选的状态
+      let checkeds=this.imgs.filter(it=>it.checked)
       this.$EventBus.$emit("changeCheckAll",checkeds,this.imgs)
-    }
+      //改变重传按钮的禁用状态
+      let resTrue=checkeds.filter(it=>it.res)
+      if(!resTrue.length){
+        this.$store.commit("setReUploadDisabled",false)
+        return
+      }
+      this.$store.commit("setReUploadDisabled",true)    }
    },
 };
 </script>
