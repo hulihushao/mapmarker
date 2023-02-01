@@ -36,6 +36,15 @@
       >
       <el-button type="text" size="mini" style="margin:0 12px;padding:0">删除</el-button>
        <el-button type="text" size="mini"  style="margin:0;padding:0">重传</el-button>
+       <el-button type="text" size="mini" style="margin:0 12px 0 0; padding: 0"
+        >一键重传</el-button
+      >
+      <el-tooltip popper-class="popperClass" content="自动重新上传上传失败的文件" placement="top" effect="light">
+        <i
+          style="font-size: 10px; line-height: 15px"
+          class="iconfont icon-tishi"
+        ></i>
+      </el-tooltip>
     </div>
   </div>
 </template>
@@ -119,5 +128,9 @@ export default {
       height:15px;
       padding:5px 0;
     }
+}
+.popperClass{
+  padding:5px;
+  margin:4px -1px !important;
 }
 </style>
