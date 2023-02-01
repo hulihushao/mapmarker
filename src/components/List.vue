@@ -121,6 +121,7 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    //获取url
     getimgs(item) {
       if (!item.url) {
         return this.$parent.getimgs(item);
@@ -128,6 +129,7 @@ export default {
         return item.url;
       }
     },
+    //获取文件大小的单位
     getSize(item) {
       let size = null;
       let units = "KB";
@@ -156,6 +158,7 @@ export default {
         this.isShowTooltip = true;
       }
     },
+    //获取状态的内容的显示
     getZT(item) {
       let zt = "";
       let color=""
@@ -177,6 +180,7 @@ export default {
       //派发修改全选状态
       let checkeds = this.imgs.filter((it) => it.checked);
       this.$EventBus.$emit("changeCheckAll", checkeds, this.imgs);
+      //改变重传按钮的禁用状态
       let resTrue=checkeds.filter(it=>it.res)
       if(!resTrue.length){
         this.$store.commit("setReUploadDisabled",false)
