@@ -64,6 +64,7 @@ export default {
       this.$EventBus.$emit('closeDialog')
       this.active=1
       this.show = false;
+      this.$store.commit("setReUploadDisabled",false)
     },
     changeActive(num){
       if (num == 2) {
