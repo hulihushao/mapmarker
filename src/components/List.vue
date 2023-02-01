@@ -177,7 +177,12 @@ export default {
       //派发修改全选状态
       let checkeds = this.imgs.filter((it) => it.checked);
       this.$EventBus.$emit("changeCheckAll", checkeds, this.imgs);
-    },
+      let resTrue=checkeds.filter(it=>it.res)
+      if(!resTrue.length){
+        this.$store.commit("setReUploadDisabled",false)
+        return
+      }
+      this.$store.commit("setReUploadDisabled",true)    },
   },
 };
 </script>
