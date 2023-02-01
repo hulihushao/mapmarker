@@ -35,7 +35,21 @@
         >全选</el-checkbox
       >
       <el-button type="text" size="mini" style="margin:0 12px;padding:0">删除</el-button>
-       <el-button type="text" size="mini"  style="margin:0;padding:0">重传</el-button>
+       <el-tooltip
+        :disabled="!reUploadDisabled"
+        popper-class="popperClass1"
+        content="选中的包含已上传的文件，请重新选择"
+        placement="top"
+        effect="light"
+      >
+       <span> <el-button
+          :disabled="reUploadDisabled"
+          type="text"
+          size="mini"
+          style="margin: 0 12px 0 0; padding: 0"
+          >重传</el-button
+        ></span>
+      </el-tooltip>
        <el-button type="text" size="mini" style="margin:0 12px 0 0; padding: 0"
         >一键重传</el-button
       >
@@ -77,6 +91,11 @@ export default {
       this.isIndeterminate =
         checkedCount > 0 && checkedCount < imgs.length;
     });
+  },
+  computed: {
+    reUploadDisabled() {
+      return this.$store.state.reUploadDisabled;
+    },
   },
   methods: {
     handleActive(num) {
@@ -129,8 +148,11 @@ export default {
       padding:5px 0;
     }
 }
-.popperClass{
-  padding:5px;
-  margin:4px -1px !important;
+.popperClass ,.popperClass1{
+  padding: 5px;
+  margin: 4px -1px !important;
+}
+.popperClass1{
+  margin-left:-7px !important;
 }
 </style>
