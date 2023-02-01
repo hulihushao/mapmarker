@@ -132,6 +132,7 @@ export default {
   mounted() {
     if (this.EleWidth == "") {
       if (
+        this.TragetObj.format != 'webp' &&
         this.TragetObj.format != "jpg" &&
         this.TragetObj.format != "png" &&
         this.TragetObj.format != "JPG" &&
@@ -166,6 +167,7 @@ export default {
   },
   beforeUpdate() {
     if (
+      this.TragetObj.format != 'webp' &&
       this.TragetObj.format != "jpg" &&
       this.TragetObj.format != "png" &&
       this.TragetObj.format != "JPG" &&
