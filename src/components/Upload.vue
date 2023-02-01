@@ -154,6 +154,7 @@ export default {
     }
   },
   watch:{
+    //监听显示方式的变化
     active(){
       this.imgs.forEach((item) => {
         item.visible = false;
@@ -170,23 +171,26 @@ export default {
       localFiles=JSON.parse(localFiles)
       this.imgs=[...this.imgs,...localFiles]
     }
+    //关闭弹窗时关闭备注框
     this.$EventBus.$on("closeDialog", () => {
       this.imgs.forEach((item) => {
         item.visible = false;
       });
     });
+    //点击全选时改变全部数据的选中状态
     this.$EventBus.$on("CheckAll",val=>{
         this.imgs.forEach(item=>{
           item.checked=val
         })
-
     })
+    //设置每一项的checked及预览url数组
     this.imgs.forEach(item=>{
       this.$set(item,"checked",false)
       this.srcList.push(this.getimgs(item))
     })
   },
   methods: {
+    //请求获取数据
     getPic(params) {
       this.$httpRequest.getPic().then((res) => {
         console.log(res);
@@ -201,10 +205,12 @@ export default {
     },
     // 删除图片
     handleRemove(index, row) {
+      //取消上传
       if(this.imgs[index].uploading){
         this.controllers[index-1].controller.abort()
         return
       }
+      //删除
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -222,6 +228,7 @@ export default {
       localFiles.splice(i,1)
       localStorage.setItem("localFiles",JSON.stringify(localFiles))
     }
+        //请求删除
           try {
             this.$httpRequest
               .deletePic(param)
@@ -243,10 +250,11 @@ export default {
           });
         });
     },
+    //下载
     handleDownload(index,row){
 
     },
-    // 图片获取
+    // 图片url获取
     getimgs(item) {
       if(!item.url){
         return window.imgUrl + "/" + item.encode_str + item.type_tail;
@@ -263,7 +271,9 @@ export default {
         return;
       }
       this.uploading = true;
+      /*上传文件重传判断*/
       let getfs = this.imgs.filter((item) => item.uid == file.uid);
+      //取消上传控制器
       let controller=new AbortController()
       if (!getfs.length) {
         this.controllers.push({uid:file.uid,controller});
@@ -301,10 +311,12 @@ export default {
       for (let item in params) {
         newfile.append(item, params[item]);
       }
+      //上传
       let lastTime = 0; // 上一次计算时间
       let lastSize = 0;
       this.$httpRequest
         .postPic(newfile,{signal: controller.signal,onUploadProgress:(e)=>{
+          //上传进度，速率，百分比
           const { loaded, total } = e
           let fs = this.imgs.filter((item) => item.uid == file.uid);
           fs[0].jd = parseFloat((loaded / total*99.99).toFixed(2))
@@ -354,6 +366,7 @@ export default {
               visible:false,
               isShowActions:false,
             }
+          //转base64
           let fr = new FileReader()
           fr.readAsDataURL(file.raw)
           if(localFiles){
@@ -421,9 +434,11 @@ export default {
         });
       }
     },
+    //下载
     handleDownload(file) {
       console.log(file);
     },
+   // 显示备注框
     showDescribe(index, row) {
       this.imgs.forEach((item) => {
         item.visible = false;
@@ -431,25 +446,31 @@ export default {
       if (!this.imgs[index].res) return;
       this.imgs[index].visible = true;
     },
+    //关闭备注框
     closeDescribe(index, item) {
       item.visible = false;
     },
+    //重传
     handleReupLoad(index, item){
       this.handlePreview(item.file,null,index)
     },
+    //显示操作按钮
     showActions(index,it){
       this.imgs.forEach((item)=>{
         item.isShowActions=false
       })
       it.isShowActions=true
      },
+     //图片预览
      handlePreviewPic(index,item){
       this.imgViewIndex=index
       this.showViewer=true
     },
+    //关闭预览
     closeViewer() {
        this.showViewer = false
     },
+    //修改选中状态
     handleCheckedChange(value,uid){
       //改变选中的checked
       let fs=this.imgs.filter(item=>item.uid==uid)
