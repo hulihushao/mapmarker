@@ -505,14 +505,7 @@ export default {
     //批量删除
     handleDeletes() {
       let uploading=this.imgs.filter(item=>item.uploading)
-      let checkeds=[]
-      let indexs=[]
-      this.imgs.forEach((item,index)=>{
-        if(item.checked){
-          checkeds.push(item)
-          indexs.push(index)
-        }
-      })
+      let checkeds=this.imgs.filter(item=>item.checked)
       let text="此操作将永久删除已选文件"
       if(uploading.length){
         text="部分文件正在上传，继续操作将取消上传并删除"
@@ -524,11 +517,12 @@ export default {
         center: TextTrackCueList,
       })
         .then(() => {
-          checkeds.forEach((item,index)=>{
+          checkeds.forEach((item)=>{
             if(item.uploading){
-              this.cancelUpload(item,index)
+              this.cancelUpload(item)
             }
-            this.deleteItem(item, indexs[index]);
+            let i=this.imgs.findIndex(it=>it.uid==item.uid)  
+            this.deleteItem(item, i);
           })
         })
         .catch((e) => {
