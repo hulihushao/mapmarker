@@ -34,7 +34,7 @@
         @change="handleCheckAllChange"
         >全选</el-checkbox
       >
-      <el-button type="text" size="mini" style="margin:0 12px;padding:0">删除</el-button>
+      <el-button @click="handleDeletes" type="text" size="mini" style="margin:0 12px;padding:0">删除</el-button>
        <el-tooltip
         :disabled="!reUploadDisabled"
         popper-class="popperClass1"
@@ -114,6 +114,9 @@ export default {
       this.isIndeterminate = false;
       this.$EventBus.$emit("CheckAll",val)
     },
+    handleDeletes(){
+     this.$EventBus.$emit("deletes"); 
+    }
   },
 };
 </script>
