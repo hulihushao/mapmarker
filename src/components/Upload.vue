@@ -184,6 +184,9 @@ export default {
         })
         this.handleCheckedChange(false, "")
     })
+    this.$EventBus.$on("deletes", () => {
+      this.handleDeletes();
+    });
     //设置每一项的checked及预览url数组
     this.imgs.forEach(item=>{
       this.$set(item,"checked",false)
@@ -497,8 +500,45 @@ export default {
         this.$store.commit("setReUploadDisabled",false)
         return
       }
-      this.$store.commit("setReUploadDisabled",true)    }
-   },
+      this.$store.commit("setReUploadDisabled",true) 
+    },
+    //批量删除
+    handleDeletes() {
+      let uploading=this.imgs.filter(item=>item.uploading)
+      let checkeds=[]
+      let indexs=[]
+      this.imgs.forEach((item,index)=>{
+        if(item.checked){
+          checkeds.push(item)
+          indexs.push(index)
+        }
+      })
+      let text="此操作将永久删除已选文件"
+      if(uploading.length){
+        text="部分文件正在上传，继续操作将取消上传并删除"
+      }
+      this.$confirm(text+", 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+        center: TextTrackCueList,
+      })
+        .then(() => {
+          checkeds.forEach((item,index)=>{
+            if(item.uploading){
+              this.cancelUpload(item,index)
+            }
+            this.deleteItem(item, indexs[index]);
+          })
+        })
+        .catch((e) => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
+    },
+  },
 };
 </script>
 <style lang="scss">
