@@ -206,44 +206,19 @@ export default {
     },
     // 删除图片
     handleRemove(index, row) {
-      //取消上传
-      if(this.imgs[index].uploading){
-        let c=this.controllers.filter(item=>item.uid==row.uid)
-        c[0].controller.abort();
-        return
+
+      if (this.imgs[index].uploading) {
+        this.cancelUpload(row, index);
+        return;
       }
-      //删除
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
         center: TextTrackCueList,
       })
-        .then(async () => {
-          this.imgs.splice(index, 1);
-          this.srcList.splice(index, 1);
-          //模拟删除
-          let localFiles=localStorage.getItem("localFiles")
-    if(localFiles){
-      localFiles=JSON.parse(localFiles)
-      let i=localFiles.findIndex((item)=>item.uid==del[0].uid)
-      localFiles.splice(i,1)
-      localStorage.setItem("localFiles",JSON.stringify(localFiles))
-    }
-        //请求删除
-          try {
-            this.$httpRequest
-              .deletePic(param)
-
-              .then((res) => {
-                this.$message.success("删除成功！");
-              })
-              .catch(() => {
-                this.$message.erroe("接口异常！");
-              });
-          } catch {
-            
-          }
+        .then(() => {
+          this.deleteItem(row, index);
         })
         .catch((e) => {
           this.$message({
@@ -251,6 +226,37 @@ export default {
             message: "已取消删除",
           });
         });
+    },
+    deleteItem(value, index) {
+      let del = this.imgs.splice(index, 1);
+
+      this.srcList.splice(index, 1);
+      //模拟删除
+      let localFiles = localStorage.getItem("localFiles");
+      if (localFiles) {
+        localFiles = JSON.parse(localFiles);
+        let i = localFiles.findIndex((item) => item.uid == del[0].uid);
+        localFiles.splice(i, 1);
+        localStorage.setItem("localFiles", JSON.stringify(localFiles));
+      }
+
+      try {
+        this.$httpRequest
+          .deletePic(param)
+
+          .then((res) => {
+            this.$message.success("删除成功！");
+          })
+          .catch(() => {
+            this.$message.erroe("接口异常！");
+          });
+      } catch (err) {}
+    },
+
+    //取消上传
+    cancelUpload(value, index) {
+      let c = this.controllers.filter((item) => item.uid == value.uid);
+      c[0].controller.abort();
     },
     //下载
     handleDownload(index,row){
