@@ -21,7 +21,7 @@
           margin: '5px',
         }"
         shadow="hover"
-        v-for="item in imgs"
+        v-for="(item,index) in imgs"
         :key="item.uid"
         ><div class="img-content">
           <video
@@ -38,9 +38,7 @@
               <el-tooltip
                 class="item"
                 effect="dark"
-                :disabled="
-                  (item.name || item.file.name).length > 19 ? false : true
-                "
+                :disabled="isShowTooltip"
                 :content="item.name || item.file.name"
                 placement="top"
               >
@@ -54,7 +52,7 @@
                     (item.name || item.file.name).substring(63)
                   }}
                 </div>
-                <span ref="refName" @mouseover="onMouseOver('refName')"
+                <span id="name" ref="refName" @mouseover="onMouseOver('refName',index)"
                   >名称：{{ item.name || item.file.name }}
                 </span>
               </el-tooltip>
@@ -148,11 +146,13 @@ export default {
       }
       return size + units;
     },
-    onMouseOver(str) {
-      let parentWidth = this.$refs[str].parentNode.offsetWidth;
-      let contentWidth = this.$refs[str].offsetWidth;
+    onMouseOver(str,index) {
+      let span=document.querySelectorAll("#name")[index]
+      let parentWidth = span.parentNode.offsetWidth;
+      let contentWidth = span.offsetWidth;
+       //alert(parentWidth+","+contentWidth)
       // 判断是否开启tooltip功能
-      if (contentWidth > parentWidth) {
+      if (contentWidth >= parentWidth) {
         this.isShowTooltip = false;
       } else {
         this.isShowTooltip = true;
