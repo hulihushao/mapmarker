@@ -208,7 +208,8 @@ export default {
     handleRemove(index, row) {
       //取消上传
       if(this.imgs[index].uploading){
-        this.controllers[index-1].controller.abort()
+        let c=this.controllers.filter(item=>item.uid==row.uid)
+        c[0].controller.abort();
         return
       }
       //删除
