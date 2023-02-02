@@ -209,7 +209,6 @@ export default {
     },
     // 删除图片
     handleRemove(index, row) {
-
       if (this.imgs[index].uploading) {
         this.cancelUpload(row, index);
         return;
@@ -232,17 +231,16 @@ export default {
     },
     deleteItem(value, index) {
       let del = this.imgs.splice(index, 1);
-
       this.srcList.splice(index, 1);
       //模拟删除
       let localFiles = localStorage.getItem("localFiles");
       if (localFiles) {
         localFiles = JSON.parse(localFiles);
         let i = localFiles.findIndex((item) => item.uid == del[0].uid);
+        if(i<0)return
         localFiles.splice(i, 1);
         localStorage.setItem("localFiles", JSON.stringify(localFiles));
       }
-
       try {
         this.$httpRequest
           .deletePic(param)
@@ -255,7 +253,6 @@ export default {
           });
       } catch (err) {}
     },
-
     //取消上传
     cancelUpload(value, index) {
       let c = this.controllers.filter((item) => item.uid == value.uid);
@@ -524,6 +521,8 @@ export default {
             let i=this.imgs.findIndex(it=>it.uid==item.uid)  
             this.deleteItem(item, i);
           })
+          this.handleCheckedChange(false,"")
+          this.$store.commit("setReUploadDisabled",false)
         })
         .catch((e) => {
           this.$message({
