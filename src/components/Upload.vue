@@ -182,6 +182,7 @@ export default {
         this.imgs.forEach(item=>{
           item.checked=val
         })
+        this.handleCheckedChange(false, "")
     })
     //设置每一项的checked及预览url数组
     this.imgs.forEach(item=>{
@@ -302,6 +303,9 @@ export default {
         let fc=this.controllers.filter((item)=>item.uid==file.uid)
         fc[0].controller=controller
       }
+      setTimeout(()=>{
+        this.handleCheckedChange(false, "")
+      },100)
       let params = {
         relPoint: this.featureData.encodeStr,
         command: "",
