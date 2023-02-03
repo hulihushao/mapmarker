@@ -116,7 +116,13 @@ export default {
     },
     handleDeletes(){
      this.$EventBus.$emit("deletes"); 
-    }
+    },
+    handleReUpload(){
+      this.$EventBus.$emit("reUpload"); 
+    },
+    handleAllReUpload() {
+      this.$EventBus.$emit("allReUpload");
+    },
   },
 };
 </script>
