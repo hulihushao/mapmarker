@@ -513,7 +513,7 @@ export default {
       if(uploading.length){
         text="部分文件正在上传，继续操作将取消上传并删除"
       }
-      if(!checkeds)return
+      if(!checkeds.length)return
       this.$confirm(text+", 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
