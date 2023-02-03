@@ -24,6 +24,7 @@ export default {
         url: val.url, // 预览地址
         downUrl: "", // 下载地址
       }; // 目标对象
+      this.FilePreAll=[]
       this.imgs.forEach((item,index) => {
         // 需要预览的文件数组（可以传空数组就是单张预览）
         let obj = {
