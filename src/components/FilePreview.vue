@@ -414,7 +414,7 @@ export default {
       -webkit-transform: translateX(-50%);
       transform: translateX(-50%);
       // width: 250px;
-      height: 3.4rem;
+      height: 2.8rem;
       padding: 0 10px;
       background-color: rgba(96, 98, 102, 0.6);
       border-color: #fff;
@@ -427,22 +427,22 @@ export default {
         align-items: center;
         li {
           list-style: none;
-          font-size: 2.5rem;
+          font-size: 1.8rem;
           color: #fff;
-          padding: 6px 10px;
+          padding: 6px 12px;
           cursor: pointer;
         }
       }
     }
     .next {
       position: absolute;
-      top: 50%;
-      right: 20px;
+      top: 47%;
+      right: 40px;
       z-index: 10020;
-      font-size: 2.5rem;
-      height: 3.4rem;
-      width: 3.4rem;
-      line-height: 3.4rem;
+      font-size: 1.8rem;
+      height: 2.8rem;
+      width: 2.8rem;
+      line-height: 2.8rem;
       text-align: center;
       background: rgba(96, 98, 102, 0.6);
       color: #fff;
@@ -451,13 +451,13 @@ export default {
     }
     .previous {
       position: absolute;
-      top: 50%;
-      left: 20px;
+      top: 47%;
+      left: 40px;
       z-index: 10020;
-      font-size: 2.5rem;
-      height: 3.4rem;
-      width: 3.4rem;
-      line-height: 3.4rem;
+      font-size: 1.8rem;
+      height: 2.8rem;
+      width: 2.8rem;
+      line-height: 2.8rem;
       text-align: center;
       background: rgba(96, 98, 102, 0.6);
       color: #fff;
@@ -466,16 +466,16 @@ export default {
     }
     .close {
       position: absolute;
-      top: 50px;
-      right: 50px;
+      top: 40px;
+      right: 40px;
       z-index: 10020;
-      font-size: 2.5rem;
+      font-size: 1.8rem;
       cursor: pointer;
       background: rgba(96, 98, 102, 0.6);
       border-radius: 50%;
-      width: 3.4rem;
-      height: 3.4rem;
-      line-height: 3.4rem;
+      width: 2.6rem;
+      height: 2.6rem;
+      line-height: 2.6rem;
       text-align: center;
     }
   }
