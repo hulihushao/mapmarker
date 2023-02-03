@@ -143,8 +143,8 @@ export default {
     },
     onMouseOver(str,index) {
       let span=document.querySelectorAll("#name")[index]
-      let parentWidth = span.parentNode.offsetWidth;
-      let contentWidth = span.offsetWidth;
+      let parentWidth = span.parentNode.offsetHeight;
+      let contentWidth = span.offsetHeight;
        //alert(parentWidth+","+contentWidth)
       // 判断是否开启tooltip功能
       if (contentWidth >= parentWidth) {
