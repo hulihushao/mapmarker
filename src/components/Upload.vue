@@ -187,6 +187,12 @@ export default {
     this.$EventBus.$on("deletes", () => {
       this.handleDeletes();
     });
+    this.$EventBus.$on("reUpload",()=>{
+      this.handleReUpload()
+    });
+    this.$EventBus.$on("allReUpload",()=>{
+      this.handleAllReUpload()
+    });
     //设置每一项的checked及预览url数组
     this.imgs.forEach(item=>{
       this.$set(item,"checked",false)
@@ -531,6 +537,20 @@ export default {
           });
         });
     },
+    handleReUpload(){
+      let checkeds=this.imgs.filter(item=>item.checked)
+      checkeds.forEach(item=>{
+        let i=this.imgs.findIndex(it=>it.uid==item.uid)  
+        this.handleReupLoad(i, item) 
+      })
+    },
+    handleAllReUpload(){
+      let resFalse=this.imgs.filter(item=>!item.res)
+      resFalse.forEach(item=>{
+        let i=this.imgs.findIndex(it=>it.uid==item.uid)  
+        this.handleReupLoad(i, item) 
+      })
+    }
   },
 };
 </script>
