@@ -42,15 +42,10 @@
                 :content="item.name || item.file.name"
                 placement="top"
               >
-                <div
+                <div style="max-width:55vw"
                   slot="content"
-                  v-if="(item.name || item.file.name).length > 30"
                 >
-                  {{ (item.name || item.file.name).substring(0, 30) }}<br />{{
-                    (item.name || item.file.name).substring(30, 63)
-                  }}<br v-if="(item.name || item.file.name).length > 60" />{{
-                    (item.name || item.file.name).substring(63)
-                  }}
+                  {{ item.name||item.file.name }}
                 </div>
                 <span id="name" ref="refName" @mouseover="onMouseOver('refName',index)"
                   >名称：{{ item.name || item.file.name }}
