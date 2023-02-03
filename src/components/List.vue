@@ -23,14 +23,14 @@
         shadow="hover"
         v-for="(item,index) in imgs"
         :key="item.uid"
-        ><div class="img-content">
+        ><div class="img-content" @click="onClickOpenPreview(item)">
           <video
             v-if="item.type == 'mp4'"
             width="100%"
             :src="item.url"
             autoplay
           />
-          <el-image ref="preview" fit="contain" :src="getimgs(item)" :preview-src-list="[item.url||getimgs(item)]"></el-image>
+          <el-image ref="preview" fit="contain" :src="getimgs(item)" ></el-image>
         </div>
         <div class="text">
           <div>
@@ -84,10 +84,20 @@
         </div>
       </el-card>
     </transition-group>
+    <!-- 预览 -->
+    <div class="preview" v-if="IsPreview">
+      <file-preview
+        :key="timers"
+        :TragetPic="TragetPic"
+        :FilePreAll="FilePreAll"
+        @Close="onClickClosePreview"
+      ></file-preview>
+    </div>
   </div>
 </template>
 
 <script>
+import filePreview from "@/mixins/filePreview.js";
 export default {
   props: {
     imgs: {
@@ -100,6 +110,7 @@ export default {
     },
   },
   components: {},
+  mixins: [filePreview],
   data() {
     return {
       isShowTooltip: false,
