@@ -164,6 +164,7 @@ export default {
         this.NumIndex = index;
       }
     });
+    this.setCurrentTime();
   },
   beforeUpdate() {
     if (
@@ -286,6 +287,7 @@ export default {
     },
     // 点击下一个事件
     onClickNext() {
+      this.getCurrentTime();
       this.setOriginal();
       if (this.NumIndex < this.FilePresAll.length - 1) {
         this.NumIndex++;
@@ -293,10 +295,45 @@ export default {
         this.NumIndex = this.NumIndex - this.FilePresAll.length + 1;
       }
       this.TragetObj = this.FilePresAll[this.NumIndex];
+      this.setCurrentTime();
+    },
+    //获取播放进度
+    getCurrentTime() {
+      let video = this.$refs.videoref;
+      if (!video) return;
+      let currentTime = this.$refs.videoref.currentTime;
+      let localCurTime = localStorage.getItem("currentTime");
+      if (localCurTime) {
+        localStorage.setItem(
+          "currentTime",
+          localCurTime + "+" + video.src + "," + currentTime
+        );
+        return;
+      }
+      localStorage.setItem("currentTime", video.src + "," + currentTime);
     },
 
+    //设置播放进度
+    setCurrentTime() {
+      if (this.TragetObj.format == "mp4") {
+        let localCurTime = localStorage.getItem("currentTime");
+        let currentTime = 0;
+        if (localCurTime) {
+          localCurTime = localCurTime.split("+");
+          localCurTime.forEach((item) => {
+            if (item.indexOf(this.TragetObj.url) > -1) {
+              currentTime = item.split(",")[1];
+            }
+          });
+        }
+        setTimeout(() => {
+          this.$refs.videoref.currentTime = parseFloat(currentTime || 0);
+        });
+      }
+    },
     // 点击上一个事件
     onCLickPrevious() {
+      this.getCurrentTime();
       this.setOriginal();
       if (this.NumIndex != 0) {
         this.NumIndex--;
@@ -304,6 +341,7 @@ export default {
         this.NumIndex = this.FilePresAll.length - 1;
       }
       this.TragetObj = this.FilePresAll[this.NumIndex];
+      this.setCurrentTime();
     },
 
     // 关闭按钮
@@ -311,6 +349,7 @@ export default {
       // 关闭视频声音
       if (this.$refs.videoref != undefined) {
         this.$refs.videoref.pause();
+        this.getCurrentTime();
       }
       this.$emit("Close", false);
     },
