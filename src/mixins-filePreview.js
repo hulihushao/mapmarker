@@ -26,6 +26,10 @@ export default {
       }; // 目标对象
       this.FilePreAll=[]
       this.imgs.forEach((item,index) => {
+        let url
+        if(item.uid==val.uid){
+          url=val.url
+        }
         // 需要预览的文件数组（可以传空数组就是单张预览）
         let obj = {
           FileName: item.name||item.file.name,
@@ -33,7 +37,7 @@ export default {
           id: item.uid, // 文件id
 
         format: (item.name||item.file.name).split(".")[(item.name||item.file.name).split(".").length-1], // 文件格式
-        url: this.srcList[index], // 预览地址
+        url: url||this.srcList[index], // 预览地址
         
           downUrl: "",
         };
