@@ -28,7 +28,8 @@
        <el-checkbox
         size="mini"
         border
-        style="border: none; margin-top: -4px; width: 60px"
+        style="border: none; margin-top: 0px; width: 60px;display: flex;
+align-items:center;"
         :indeterminate="isIndeterminate"
         v-model="checkAll"
         @change="handleCheckAllChange"
@@ -151,6 +152,7 @@ export default {
       height:0;
       overflow:hidden;
       display:flex;
+      align-items:center;
     }
     .showPLBtn{
       height:15px;
