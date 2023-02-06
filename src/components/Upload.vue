@@ -67,7 +67,7 @@
             ></el-image>
             <div v-else class="imgs">
               <video v-if="item.type=='mp4'" width="100%" :src="item.url" autoplay/>
-              <img v-else :src="item.url" alt="" />
+              <img :src="getimgs(item)" alt="" />
             </div>
             <transition name="el-fade-in-linear">
              <div class="actions" v-show="item.res&&!item.uploading&&item.isShowActions">
@@ -145,7 +145,12 @@ export default {
       uploading: false,
       showViewer: false,
       imgViewIndex:0,
-      controllers:[]
+      controllers:[],
+      txtUrl:"static/img/star.png",
+      pdfUrl:"static/img/star.png",
+      wordUrl:"static/img/star.png",
+      excelUrl:"static/img/star.png",
+      pptUrl:"static/img/star.png",
     };
   },
   computed: {
@@ -270,10 +275,22 @@ export default {
     },
     // 图片url获取
     getimgs(item) {
-      if(!item.url){
-        return window.imgUrl + "/" + item.encode_str + item.type_tail;
+      if(item.type=="txt"){
+        return this.txtUrl
+      }else if(item.type=="pdf"){
+        return this.pdfUrl
+      }else if(item.type=="docx"){
+        return this.wordUrl
+      }else if(item.type=="xlxs"){
+        return this.excelUrl
+      }else if(item.type=="pptx"){
+        return this.pptUrl
       }else{
-        return item.url
+      if (!item.url) {
+        return window.imgUrl + "/" + item.encode_str + item.type_tail;
+      } else {
+        return item.url;
+      }
       }
     },
     // 上传图片
