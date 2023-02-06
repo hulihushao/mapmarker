@@ -127,11 +127,7 @@ export default {
   methods: {
     //获取url
     getimgs(item) {
-      if (!item.url) {
         return this.$parent.getimgs(item);
-      } else {
-        return item.url;
-      }
     },
     //获取文件大小的单位
     getSize(item) {
