@@ -69,6 +69,7 @@
               >
                 <span> 备注：{{ item.command }} </span>
               </el-tooltip>
+            <span >更多</span>
             </p>
           </div>
           <el-checkbox
@@ -226,7 +227,7 @@ export default {
     p {
     }
     p:nth-child(1),
-    p:nth-child(3) {
+    p:nth-child(3),p:nth-child(3) span:nth-child(1) {
       overflow: hidden;
       /* 多余的以省略号出现 */
       text-overflow: ellipsis;
@@ -242,6 +243,17 @@ export default {
       font-size: 12px;
       color: #ccc;
     }
+    p:nth-child(3) {
+        display: flex;
+        span:nth-child(1) {
+          max-width: 85%;
+          width: auto;
+        }
+        span:nth-child(2) {
+          width: auto;
+          padding: 0 2px;
+        }
+      }
   }
 }
 </style>
