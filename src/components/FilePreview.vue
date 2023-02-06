@@ -59,6 +59,7 @@
           scrolling="yes"
           height="890.15"
           width="1220.4"
+          style="max-width:100%;background:rgba(255,255,255,1);border:1px solid #ccc"
           :src="TragetObj.url"
         ></iframe>
       </div>
