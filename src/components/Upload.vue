@@ -93,7 +93,7 @@
     <span v-if="show" style="width:100%;">
      <transition mode="out-in" enter-active-class="animate__animated animate__fadeInDown" leave-active-class="">
      <template v-if="active==2">
-      <List :imgs="imgs" :srcList="srcList" @handleCheckedChange="handleCheckedChange"/>
+      <List :imgs="imgs" :srcList="srcList" @handleCheckedChange="handleCheckedChange" @handleMore="clickMore"/>
      </template>
      </transition>
     </span>
@@ -201,6 +201,7 @@ export default {
     //设置每一项的checked及预览url数组
     this.imgs.forEach(item=>{
       this.$set(item,"checked",false)
+      this.$set(item, "isMore", false);
       this.srcList.push(this.getimgs(item))
     })
   },
@@ -568,6 +569,10 @@ export default {
         let i=this.imgs.findIndex(it=>it.uid==item.uid)  
         this.handleReupLoad(i, item) 
       })
+    },
+    clickMore(val){
+      let get=this.imgs.filter(item=>item.uid==val.uid)
+      if(get.length)get[0].isMore=!get[0].isMore
     }
   },
 };
