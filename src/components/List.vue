@@ -266,13 +266,9 @@ export default {
         }
       }
     }
-    .more_div {
-      height: auto;
-      position: relative;
-      .more_span2 {
+    .more_span2 {
         position: absolute;
         bottom: 0px;
-      }
     }
     width: 90%;
     display: flex;
