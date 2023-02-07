@@ -67,9 +67,14 @@
                 :content="item.command"
                 placement="top"
               >
-                <span> 备注：{{ item.command }} </span>
+                <span class="command" :class="{ bz: item.isMore }"> 备注：{{ item.command }} </span>
               </el-tooltip>
-            <span >更多</span>
+              <span
+                v-if="item.command"
+                :class="{ more_span2: item.isMore,more:!item.isMore }"
+                @click="()=>{$emit('handleMore', item);}"
+                >{{ item.isMore ? "收起" : "展开" }}</span
+              >
             </p>
           </div>
           <el-checkbox
@@ -212,48 +217,67 @@ export default {
   .text {
     div {
       margin-left: 10px;
-
-      height: 15vw;
+      border: 1px solid #000;
       border: 1px solid #fff;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       padding: 0px;
+      width:100%;
+      p {
+        min-height: 18px;
+      }
+      p:nth-child(1),
+      p:nth-child(3),
+      .command {
+        width: 100%;
+        overflow: hidden;
+        /* 多余的以省略号出现 */
+        text-overflow: ellipsis;
+        /* 将对象作为弹性伸缩盒子模型显示 */
+        display: -webkit-box;
+        /* 限制再一个块元素再文本显示的行数 */
+        -webkit-line-clamp: 1;
+        /* 设置或检索伸缩盒对象的子元素的排列方式 */
+        -webkit-box-orient: vertical;
+      }
+      p:nth-child(2),
+      p:nth-child(3) {
+        font-size: .75rem;
+        color: #ccc;
+      }
+      p:nth-child(3) {
+        display: flex;
+        position: relative;
+        span:nth-child(1) {
+          max-width: 87%;
+          width: auto;
+        }      
+        .bz{
+           -webkit-line-clamp: 999;
+        }
+        span:nth-child(2) {
+          width: auto;
+          padding: 0 2px;
+          position:absolute;
+          right:0;
+        }
+        .more{
+          top:0;  
+        }
+      }
+    }
+    .more_div {
+      height: auto;
+      position: relative;
+      .more_span2 {
+        position: absolute;
+        bottom: 0px;
+      }
     }
     width: 90%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    p {
-    }
-    p:nth-child(1),
-    p:nth-child(3),p:nth-child(3) span:nth-child(1) {
-      overflow: hidden;
-      /* 多余的以省略号出现 */
-      text-overflow: ellipsis;
-      /* 将对象作为弹性伸缩盒子模型显示 */
-      display: -webkit-box;
-      /* 限制再一个块元素再文本显示的行数 */
-      -webkit-line-clamp: 1;
-      /* 设置或检索伸缩盒对象的子元素的排列方式 */
-      -webkit-box-orient: vertical;
-    }
-    p:nth-child(2),
-    p:nth-child(3) {
-      font-size: 12px;
-      color: #ccc;
-    }
-    p:nth-child(3) {
-        display: flex;
-        span:nth-child(1) {
-          max-width: 85%;
-          width: auto;
-        }
-        span:nth-child(2) {
-          width: auto;
-          padding: 0 2px;
-        }
-      }
   }
 }
 </style>
