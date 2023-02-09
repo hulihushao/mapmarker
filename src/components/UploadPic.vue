@@ -11,7 +11,9 @@
     <el-dialog
       title="图片上传/浏览"
       :visible.sync="dialogVisible"
-      append-to-body @close="closeDia"
+      append-to-body destroy-on-close
+      @close="closeDia"
+      width="90vw"
     >
       <PicActions @changeActive="changeActive"/>
       <div style="min-height:25vh">
