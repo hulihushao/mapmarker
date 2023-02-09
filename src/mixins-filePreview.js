@@ -21,7 +21,7 @@ export default {
         name: val.name||val.file.name, // 文件名称（可以不传）
         id: val.uid, // 文件id
         format: (val.name||val.file.name).split(".")[(val.name||val.file.name).split(".").length-1], // 文件格式
-        url: val.url, // 预览地址
+        url: val.url||this.$parent.getimgs(val), // 预览地址
         downUrl: "", // 下载地址
       }; // 目标对象
       this.FilePreAll=[]
