@@ -8,6 +8,7 @@ export default new Vuex.Store({
     showFormDialog:false,
     position:[],
     showChecked:false,
+    reUploadDisabled:false,
   },
   mutations: {
     setShowFormDialog(state,value){
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     setShowChecked(state,value){
       state.showChecked=value
+    },
+    setReUploadDisabled(state,value){
+      state.reUploadDisabled=value
     }
   },
   actions: {
