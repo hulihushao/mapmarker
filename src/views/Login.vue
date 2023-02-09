@@ -46,6 +46,7 @@
               </div>
             </div>
           </el-form-item>
+          <el-checkbox style="margin-bottom:10px" v-model="checked">记住密码</el-checkbox>
           <el-button
             size="default"
             @click="submit('loginForm')"
@@ -72,6 +73,7 @@ export default {
   },
   data() {
     return {
+      checked:true,
       loading: false,
       identifyCode: "",
       identifyCodes: "0123456789abcdwerwshdjeJKDHRJHKOOPLMKQMAPGIS", //随便
@@ -115,6 +117,8 @@ export default {
   methods: {
     // 登录
     submit(name) {
+      localStorage.setItem("user",JSON.stringify(this.formLogin))
+      this.$router.push("/map")
       this.$refs[name].validate((valid) => {
         if (valid) {
           let postData = {
