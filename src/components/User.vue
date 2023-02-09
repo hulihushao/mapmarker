@@ -7,7 +7,7 @@
  * @LastEditTime: 2022-06-02 16:16:52
 -->
 <template>
-  <div id="user">
+  <div id="user" v-drag>
     <el-dropdown size="small" :hide-on-click="false" @command="handleCommand">
       <el-avatar
         style="border: 1px solid red"
@@ -31,38 +31,36 @@ export default {
     return {
       dropdownMenu: [
         {
-
           command: "",
-          name: "用户名",
+          name: localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")).username:"未登录",
           disabled:true,
           style:{
             color:"red",
-            'font-size':'15px'
+            'font-size':'15px',
+            'font-weight':'600'
           },
-
         },
         {
-
           command: "user",
           name: "个人中心",
-          disabled:false,
+          disabled:localStorage.getItem("user")?false:true,
           divided:true,
         },
         {
           command: "changePassword",
           name: "修改密码",
-          disabled:false
+          disabled:localStorage.getItem("user")?false:true
         },
         {
           command: "singOut",
-          name: "退出",
+          name: localStorage.getItem("user")?"退出":"登录",
           disabled:false,
           divided:true,
         },
       ],
     };
   },
-  created() {},
+  created(){},
   methods: {
     handleCommand(command) {
       switch (command) {
@@ -74,6 +72,7 @@ export default {
       }
     },
     singOut() {
+      localStorage.removeItem("user")
       this.$router.push("/login");
     },
   },
