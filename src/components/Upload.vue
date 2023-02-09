@@ -138,7 +138,7 @@ export default {
     return {
       imgs: [
         { encode_str: "static/img/star", type_tail: ".png",name:"star.png", res: true,
-          isShowActions: false,},
+          isShowActions: false,uid:1,command:""},
       ],
       srcList: [], // 浏览数据  ['http:...jpg']
       disabled: false,
@@ -146,11 +146,11 @@ export default {
       showViewer: false,
       imgViewIndex:0,
       controllers:[],
-      txtUrl:"static/img/star.png",
-      pdfUrl:"static/img/star.png",
-      wordUrl:"static/img/star.png",
-      excelUrl:"static/img/star.png",
-      pptUrl:"static/img/star.png",
+      txtUrl:"https://bpic.588ku.com/element_origin_min_pic/00/93/57/6856f2a49d1a394.jpg",
+      pdfUrl:"https://bpic.51yuansu.com/pic3/cover/02/35/82/59c1b2158b605_610.jpg",
+      wordUrl:"https://o.quizlet.com/rZLyHg8fc1ji-JQ.md7PKQ.png",
+      excelUrl:"https://www.ucbug.com/uploads/tag/x19/0622/1906225d0d4475119de.jpg",
+      pptUrl:"https://bpic.588ku.com/element_origin_min_pic/00/85/43/7256e8ea4763109.jpg",
     };
   },
   computed: {
@@ -322,6 +322,7 @@ export default {
           jd: 0,
           jd_num: 0,
           speed: 0,
+          isMore:false,
           isShowActions: false,
         });
         },100)
@@ -335,6 +336,7 @@ export default {
         fc[0].controller=controller
       }
       setTimeout(()=>{
+        //派发修改全选状态
         this.handleCheckedChange(false, "")
       },100)
       let params = {
@@ -350,7 +352,9 @@ export default {
       let lastTime = 0; // 上一次计算时间
       let lastSize = 0;
       this.$httpRequest
-        .postPic(newfile,{signal: controller.signal,onUploadProgress:(e)=>{
+        .postPic(newfile,{
+          signal: controller.signal,
+          onUploadProgress:(e)=>{
           //上传进度，速率，百分比
           const { loaded, total } = e
           let fs = this.imgs.filter((item) => item.uid == file.uid);
@@ -387,7 +391,9 @@ export default {
             speed = parseFloat((speed / 1024).toFixed(2));
             units = "m/s";
           }
-          fs[0].speed = speed + units;        })
+          fs[0].speed = speed + units;
+         },
+        })
         .then((res) => {
           try{
           //模拟上传存储
