@@ -93,7 +93,7 @@
     <span v-if="show" style="width:100%;">
      <transition mode="out-in" enter-active-class="animate__animated animate__fadeInDown" leave-active-class="">
      <template v-if="active==2">
-      <List :imgs="imgs" :srcList="srcList" @handleCheckedChange="handleCheckedChange" @handleMore="clickMore"/>
+      <List :imgs="imgs" :srcList="srcList" @handleCheckedChange="handleCheckedChange" @handleMore="clickMore" @showMore="isShowMore"/>
      </template>
      </transition>
     </span>
@@ -579,6 +579,9 @@ export default {
     clickMore(val){
       let get=this.imgs.filter(item=>item.uid==val.uid)
       if(get.length)get[0].isMore=!get[0].isMore
+    },
+    isShowMore(index,value){
+      this.$set(this.imgs[index], "isShowMore", value);
     }
   },
 };
