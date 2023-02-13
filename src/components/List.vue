@@ -33,7 +33,7 @@
           <el-image ref="preview" fit="contain" :src="getimgs(item)" ></el-image>
         </div>
         <div class="text">
-          <div>
+          <div :style="{width:$store.state.showChecked?'90%':'100%'}">
             <p>
               <el-tooltip
                 class="item"
@@ -66,11 +66,12 @@
                 :disabled="item.command ? false : true"
                 :content="item.command"
                 placement="top"
-              >
-                <span class="command" :class="{ bz: item.isMore }"> 备注：{{ item.command }} </span>
+              >  
+                <!--class="command"-->
+                <span :class="{command:!item.isMore, bz: item.isMore }"> 备注：{{ item.command }} </span>
               </el-tooltip>
               <span
-                v-if="item.command"
+                v-if="item.command&& item.isShowMore"
                 :class="{ more_span2: item.isMore,more:!item.isMore }"
                 @click="()=>{$emit('handleMore', item);}"
                 >{{ item.isMore ? "收起" : "展开" }}</span
@@ -129,7 +130,9 @@ export default {
     },
   },
   created() {},
-  mounted() {},
+  mounted() {
+    this.showMore();
+  },
   methods: {
     //获取url
     getimgs(item) {
@@ -166,6 +169,21 @@ export default {
         this.isShowTooltip = true;
       }
     },
+    showMore() {
+      let span = document.querySelectorAll(".command");
+      span.forEach((item, index) => {
+        let isShow = false;
+        let parentWidth = item.scrollWidth;
+        let contentWidth = item.offsetWidth;
+        alert(parentWidth + "," + contentWidth);
+        if (contentWidth < parentWidth) {
+          isShow = true;
+        } else {
+          isShow = false;
+        }
+        this.$emit("showMore", index, isShow);
+      });
+    },
     //获取状态的内容的显示
     getZT(item) {
       let zt = "";
@@ -199,6 +217,93 @@ export default {
 };
 </script>
 
+<style lang="less" scoped>
+#pic-list {
+  width: 90%;
+  .img-content {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border: 1px solid #ffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    .el-image {
+      width: 100%;
+    }
+  }
+  .text {
+    border: 1px solid #fff;
+
+    div {
+      margin-left: 0px;
+      border: 1px solid #fff;
+      display: flex;
+      flex-direction: column;
+      padding: 0px;
+      width: 100%;
+      p {
+        min-height: 18px;
+        border: 1px solid #fff;
+        width:100%;
+      }
+      p:nth-child(1),
+      p:nth-child(3) {
+        width: 100%;
+        overflow: hidden;
+        /* 多余的以省略号出现 */
+        text-overflow: ellipsis;
+        /* 将对象作为弹性伸缩盒子模型显示 */
+        display: -webkit-box;
+        /* 限制再一个块元素再文本显示的行数 */
+        -webkit-line-clamp: 1;
+        /* 设置或检索伸缩盒对象的子元素的排列方式 */
+        -webkit-box-orient: vertical;
+      }
+      p:nth-child(2),
+      p:nth-child(3) {
+        font-size: 0.75rem;
+        color: #ccc;
+      }
+      p:nth-child(3) {
+        display: flex;
+        position: relative;
+        span:nth-child(1) {
+          width: 89%;
+          border: 1px solid #fff;
+        }
+        .bz {
+          -webkit-line-clamp: 999;
+        }
+        .command {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+        span:nth-child(2) {
+          width: auto;
+          padding: 0 2px;
+          position: absolute;
+          right: 0;
+        }
+        .more {
+          top: 0;
+        }
+      }
+    }
+    .more_span2 {
+      position: absolute;
+      bottom: 0px;
+    }
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+</style>
+/**
 <style lang="less" scoped>
 #pic-list {
   width: 90%;
@@ -277,3 +382,4 @@ export default {
   }
 }
 </style>
+*/
