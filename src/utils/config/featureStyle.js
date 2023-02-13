@@ -44,6 +44,7 @@ export default {
   },
   line: {},
   polygon: {},
+  //选中点的样式
   selectPoint: {
     circle: {
       radius: 10, //圆半径
@@ -68,6 +69,7 @@ export default {
       },
     },
   },
+  //测距的样式
   measureLine: {
     message: {
       geodesic: true,
@@ -98,6 +100,7 @@ export default {
       },
     },
   },
+  //测面的样式
   measurePolygon: {
     message: {
       geodesic: true,
