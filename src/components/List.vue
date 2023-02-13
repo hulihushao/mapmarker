@@ -303,7 +303,7 @@ export default {
   }
 }
 </style>
-/**
+<!--
 <style lang="less" scoped>
 #pic-list {
   width: 90%;
@@ -382,4 +382,4 @@ export default {
   }
 }
 </style>
-*/
+-->
