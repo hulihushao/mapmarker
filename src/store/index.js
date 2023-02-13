@@ -5,10 +5,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    showFormDialog:false,
-    position:[],
-    showChecked:false,
-    reUploadDisabled:false,
+    showFormDialog:false,//表单显示
+    position:[],//点位坐标
+    showChecked:false,//显示多选按钮
+    reUploadDisabled:false,//重传按钮是否禁用
   },
   mutations: {
     setShowFormDialog(state,value){
