@@ -72,25 +72,36 @@ export default {
       this.$tMap.reStore()
     },
     location() {
+     let loading = this.$loading({
+       target:"#mapCon",
+        lock: true,
+        text: "定位中...",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
       if (navigator.geolocation) {
         //getCurrentPosition()中需要传入一个回调函数
         navigator.geolocation.getCurrentPosition(
           (location) => {
+            loading.close()
             mapObj.Tool.setPanTo(
               [location.coords.longitude, location.coords.latitude],
-              20,
+              18,
               () => {
-                 window.$tMap.getView().setRotation(0)
+                window.$tMap.getView().setRotation(0)
+              },
+              {
+                enableHighAcuracy: true, //位置是否精确获取
+                maximumAge: 1000,
               }
             );
-
+            
           },
           (err) => {
-            alert(1);
+             loading.close()
           }
         );
       } else {
-        alert( "无法获取当前位置");
+        alert("无法获取当前位置");
       }
     },
   },
