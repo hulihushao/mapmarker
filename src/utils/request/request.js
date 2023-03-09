@@ -54,12 +54,17 @@ let $httpRequest = (url, method='get', data, headers,option={}) => {
         url: url,
         method: method,
         data: data,
+        headers:{
+      'Content-Type':'application/x-www-form-urlencoded'
+    }
       };
     }
   }
   if(option.onUploadProgress){
     params.onUploadProgress=option.onUploadProgress
-   }  
-  return httpRequest({...params,...option});
+  }
+  params={...params,...option}
+
+  return httpRequest(params);
 };
 export default $httpRequest;
