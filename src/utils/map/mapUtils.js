@@ -11,11 +11,12 @@ import featureStyle from "@/utils/config/featureStyle";
 export default {
   async initLayer($httpRequest) {
     // 请求数据
-    let res = await $httpRequest.getAllPoint({});
-    // console.log(res);
-    if(res.status!=200){
-      Message.error("点位加载失败!")
-    }
+    let res
+     try{
+       res = await $httpRequest.getAllPoint({});
+     }catch(error){
+       Message.error("点位加载失败："+error.message)
+     }
     // 创建图层
     let layer = this.createLayer(res.data);
     layer.set("layertype", "point");
