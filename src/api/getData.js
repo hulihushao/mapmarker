@@ -1,6 +1,6 @@
 // postPic(data,option){
 //  return request('/api/map-base/add-pic','post',data, {
-                    "Content-Type": "multipart/form-data",},option)
+//                    "Content-Type": "multipart/form-data",},option)
 // },
 
 /*
