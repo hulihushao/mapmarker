@@ -7,6 +7,7 @@
  * @LastEditTime: 2022-06-01 17:35:39
  */
 import getData from './getData'
+import login from "./login"
 export default {
-  ...getData,
+  ...getData,...login
 }
