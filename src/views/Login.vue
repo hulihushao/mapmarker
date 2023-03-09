@@ -118,7 +118,34 @@ export default {
     // 登录
     submit(name) {
       localStorage.setItem("user",JSON.stringify(this.formLogin))
-      this.$router.push("/map")
+     // this.$router.push("/map")
+        this.$httpRequest.login({            
+            userName:this.formLogin.username.trim(),
+            pwd:this.formLogin.password,
+            expiration: 600,
+          }).then(res=>{
+            if(res.code==200){ 
+              this.$message({
+                    showClose: true,
+                    message: "登录成功！",
+                    type: "success",
+                  });
+                  this.$router.push("/map")
+            }else{
+              this.$message({
+                    showClose: true,
+                    message: res.data+"！",
+                    type: "error",
+                  });
+            }
+          }).catch(err=>{
+            this.$message({
+                    showClose: true,
+                    message: err.message+"！",
+                    type: "error",
+                  });
+          })
+      return
       this.$refs[name].validate((valid) => {
         if (valid) {
           let postData = {
