@@ -35,6 +35,7 @@ export default {
     return request("/api/map-base/add-point", "post", data);
   },
   postPoint(data) {
+    return request("/insertPoint", "post", data);
     return request("/api/map-base/add-point", "post", data);
   },
 };
