@@ -141,9 +141,11 @@ export default {
           }).catch(err=>{
             this.$message({
                     showClose: true,
-                    message: err.message+"！",
+                    message: err.response.messageessage+"！",
                     type: "error",
                   });
+          }).finally(()=>{
+            this.loading=false
           })
       return
       this.$refs[name].validate((valid) => {
