@@ -44,6 +44,9 @@ export default {
   reStore(){
     mapObj.Tool.setReStore()
   },
+  refreshLayer(httpRequest){
+    mapUtils.initLayer(httpRequest);
+  },
   /**
    * @name: selectClick
    * @description: 单击选中
