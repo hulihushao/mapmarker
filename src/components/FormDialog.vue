@@ -149,18 +149,18 @@ export default {
               .postPoint({
                 ...this.formLabelAlign,
                 encode_str: null,
-                create_time: null,
+                create_time: this.qdtool.timestampToTime(new Date().getTime(), "yyyy-MM-dd hh:mm:ss"),
                 modify_time: null,
                 xy: this.$store.state.position.join(","),
               })
               .then((res) => {
                 this.cancel();
                 console.log(res);
+                this.$tMap.refreshLayer(this.$httpRequest);
                 this.$message({
                   message: "新增成功！",
                   type: "success",
-                });
-                mapUtils.initLayer(this.$httpRequest);
+                });                
               })
               .catch((err) => {
                 this.loading = false;
@@ -181,11 +181,11 @@ export default {
               .then((res) => {
                 this.cancel();
                 console.log(res);
+                this.$tMap.refreshLayer(this.$httpRequest);
                 this.$message({
                   message: "修改成功！",
                   type: "success",
                 });
-                mapUtils.initLayer(this.$httpRequest);
               })
               .catch((err) => {
                 this.loading = false;
