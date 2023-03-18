@@ -141,7 +141,7 @@ export default {
           }).catch(err=>{
             this.$message({
                     showClose: true,
-                    message: err.response.message+"！",
+                    message: err.response.data.message+"！",
                     type: "error",
                   });
           }).finally(()=>{
