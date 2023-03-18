@@ -7,6 +7,7 @@
  * @LastEditTime: 2022-06-02 08:57:08
  */
 import axios from "axios";
+import { Message } from 'element-ui';
 const httpRequest = axios.create({
   baseURL: window.baseUrl || "",
   timeout: 10000,
@@ -28,8 +29,17 @@ httpRequest.interceptors.response.use(
       
       return res;
   }, error => {
+      let { response } = error;
+    if (response) {
       // console.log('err', error)
-      return Promise.reject(error)
+      return Promise.reject(error);
+    } else {
+      Message({
+        showClose: true,
+        message: "网络连接失败，请检查网络连接！",
+        type: "error",
+      });
+    }
   }
 )
 
