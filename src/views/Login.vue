@@ -117,14 +117,14 @@ export default {
   methods: {
     // 登录
     submit(name) {
-      localStorage.setItem("user",JSON.stringify(this.formLogin))
      // this.$router.push("/map")
         this.$httpRequest.login({            
             userName:this.formLogin.username.trim(),
             pwd:this.formLogin.password,
             expiration: 600,
           }).then(res=>{
-            if(res.code==200){ 
+            if(res.code==200){
+              localStorage.setItem("user",JSON.stringify(res.data[0])) 
               this.$message({
                     showClose: true,
                     message: "登录成功！",
