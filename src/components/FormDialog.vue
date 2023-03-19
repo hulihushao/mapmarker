@@ -144,6 +144,11 @@ export default {
       this.$refs.formdialog.validate((valid) => {
         if (valid) {
           this.loading = true;
+          let getItemUser = localStorage.getItem("user");
+          let user
+          if(getItemUser){
+            user = JSON.parse(getItemUser);
+          }
           if (!this.isUpdate) {
             this.$httpRequest
               .postPoint({
@@ -152,6 +157,7 @@ export default {
                 create_time: this.qdtool.timestampToTime(new Date().getTime(), "yyyy-MM-dd hh:mm:ss"),
                 modify_time: null,
                 xy: this.$store.state.position.join(","),
+                uid:user.userId
               })
               .then((res) => {
                 this.cancel();
