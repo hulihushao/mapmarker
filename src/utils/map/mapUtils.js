@@ -13,13 +13,14 @@ export default {
     // 请求数据
     let res
     let getItemUser=localStorage.getItem("user")
+    let user={}
     if(getItemUser){
-    let user=JSON.parse(getItemUser)
-     try{
+      user=JSON.parse(getItemUser)
+     }
+    try{
        res = await $httpRequest.getAllPoint({userId:user.userId});
      }catch(error){
        Message.error("点位加载失败："+error.message)
-     }
      }
     // 创建图层
     let layer = this.createLayer(res?res.data:null);
