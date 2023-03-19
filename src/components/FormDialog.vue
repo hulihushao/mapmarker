@@ -183,6 +183,7 @@ export default {
                 create_time: null,
                 modify_time: null,
                 xy: this.$store.state.position.join(","),
+                uid:user.userId
               })
               .then((res) => {
                 this.cancel();
