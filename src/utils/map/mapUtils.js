@@ -12,13 +12,17 @@ export default {
   async initLayer($httpRequest) {
     // 请求数据
     let res
+    let getItemUser=localStorage.getItem("user")
+    if(getItemUser){
+    let user=JSON.parse(getItemUser)
      try{
-       res = await $httpRequest.getAllPoint({});
+       res = await $httpRequest.getAllPoint({userId:user.userId});
      }catch(error){
        Message.error("点位加载失败："+error.message)
      }
+     }
     // 创建图层
-    let layer = this.createLayer(res.data);
+    let layer = this.createLayer(res?res.data:null);
     layer.set("layertype", "point");
     layer.set("isBase", true);
     // 设置样式
