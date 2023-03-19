@@ -145,7 +145,7 @@ export default {
         if (valid) {
           this.loading = true;
           let getItemUser = localStorage.getItem("user");
-          let user
+          let user={}
           if(getItemUser){
             user = JSON.parse(getItemUser);
           }
