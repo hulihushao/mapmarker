@@ -32,7 +32,7 @@ export default {
       dropdownMenu: [
         {
           command: "",
-          name: localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")).username:"未登录",
+          name: localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")).userName:"未登录",
           disabled:true,
           style:{
             color:"red",
