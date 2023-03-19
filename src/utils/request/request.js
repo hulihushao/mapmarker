@@ -36,7 +36,7 @@ httpRequest.interceptors.response.use(
     } else {
       Message({
         showClose: true,
-        message: "网络连接失败，请检查网络连接！",
+        message: "服务连接异常，请稍后重试！",
         type: "error",
       });
     }
