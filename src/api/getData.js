@@ -14,7 +14,7 @@
 import request from "../utils/request/request";
 export default {
   getAllPoint(params) {
-    return request("/features", "get", params);
+    return request("/features/"+params.userId, "get", {});
     return request("/api/map-base/all-point", "get", params);
   },
   getPic(params) {
