@@ -35,6 +35,7 @@
 <script>
 import val from "@/utils/config/val";
 import UploadPic from "@/components/UploadPic";
+import {deleteFeature} from "@/utils/commonFunc"
 export default {
   props: {
     feature: {
@@ -64,6 +65,11 @@ export default {
     changeSj(){
       this.$EventBus.$emit('changeSj',this.feature)
     },
+    delFeature(){
+      deleteFeature(this,this.feature,(res)=>{
+ 
+      })
+    }
   },
 };
 </script>
