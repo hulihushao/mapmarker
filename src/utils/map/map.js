@@ -187,5 +187,11 @@ export default {
       feature=features.filter(item=>item.get("id")==fid)
     }
     return feature
+  },
+  //关闭气泡
+  closeOverlays(){
+    window.$tMap.getOverlays().forEach(item=>{
+      item.setPosition(undefined)
+    })
   }
 };
