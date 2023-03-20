@@ -66,7 +66,7 @@ export default {
       this.$EventBus.$emit('changeSj',this.feature)
     },
     delFeature(){
-      deleteFeature(this,this.feature,(res)=>{
+      deleteFeature(this,{fid:this.feature.id,uid:JSON.parse(localStorage.getItem("user")).userId},(res)=>{
         this.$tMap.closeOverlays()
         this.$tMap.refreshLayer(this.$httpRequest)
       })
