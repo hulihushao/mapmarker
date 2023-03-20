@@ -191,7 +191,11 @@ export default {
               .then((res) => {
                 this.cancel();
                 console.log(res);
-                this.$tMap.refreshLayer(this.$httpRequest);
+                this.$tMap.selectClickObj.getFeatures().clear()
+                this.$tMap.refreshLayer(this.$httpRequest,()=>{
+                  let curFeature=this.$tMap.getFeatureById(this.feature.id,this.feature.position)
+                  this.$tMap.selectClickObj.dispatchEvent({type: "select",selected: curFeature})
+                })
                 this.$message({
                   message: "修改成功！",
                   type: "success",
