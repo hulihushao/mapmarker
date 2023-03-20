@@ -41,4 +41,7 @@ export default {
   changePoint(data) {
     return request("/updatePoint", "post", data);
   },
+  delFeature(data){
+    return request("/delFeature", "post", data);
+  },
 };
