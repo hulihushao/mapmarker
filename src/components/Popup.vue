@@ -68,7 +68,7 @@ export default {
     delFeature(){
       deleteFeature(this,this.feature,(res)=>{
         this.$tMap.closeOverlays()
-        this.$tMap.refreshLayer(this.httpRequest)
+        this.$tMap.refreshLayer(this.$httpRequest)
       })
     }
   },
