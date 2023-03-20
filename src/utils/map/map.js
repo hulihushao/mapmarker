@@ -44,8 +44,14 @@ export default {
   reStore(){
     mapObj.Tool.setReStore()
   },
-  refreshLayer(httpRequest){
-    mapUtils.initLayer(httpRequest);
+  refreshLayer(httpRequest,callback){
+    setTimeout(()=>{
+    mapUtils.initLayer(httpRequest,()=>{
+      setTimeout(()=>{
+        if(typeof callback=="function")callback()
+      })
+    })
+    },100)
   },
   /**
    * @name: selectClick
@@ -169,8 +175,17 @@ export default {
   measurePolygon(styles,callback){
     mapObj.Tool.measuringSurface(styles.message, styles.style,callback)
   },
-endMeasure(cbk){
-
+  endMeasure(cbk){
     mapObj.Tool.clearDraw(cbk)
+  },
+  getFeatureById(fid,position){
+    let features=window.$tMap.getFeaturesAtPixel(window.$tMap.getPixelFromCoordinate(position),{hitTolerance:1,layerFilter:(layer)=>{
+      if(layer.get("layertype")=="point")return true
+    }})
+    let feature=[]
+    if(features){
+      feature=features.filter(item=>item.get("id")==fid)
+    }
+    return feature
   }
 };
