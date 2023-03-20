@@ -88,6 +88,7 @@ export default {
         ],
       },
       isUpdate: false,
+      feature:null,
     };
   },
   computed: {
@@ -105,6 +106,7 @@ export default {
     this.$EventBus.$on("changeSj", (feature) => {
       console.log(feature);
       if (feature) {
+        this.feature=feature
         this.isUpdate = true;
         let ks = { ...feature };
         for (let key in ks) {
@@ -183,7 +185,8 @@ export default {
                 create_time: null,
                 modify_time: null,
                 xy: this.$store.state.position.join(","),
-                uid:user.userId
+                uid:user.userId,
+                fid:this.feature.id
               })
               .then((res) => {
                 this.cancel();
