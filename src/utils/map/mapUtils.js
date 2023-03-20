@@ -9,7 +9,7 @@
 import featureStyle from "@/utils/config/featureStyle";
 
 export default {
-  async initLayer($httpRequest) {
+  async initLayer($httpRequest,callback) {
     // 请求数据
     let res
     let getItemUser=localStorage.getItem("user")
@@ -46,6 +46,7 @@ export default {
     } else {
       window.$tMap.getLayers().setAt(f[0], layer);
     }
+    if(typeof callback=="function")callback()
   },
   // 创建图层
   createLayer: (data) => {
