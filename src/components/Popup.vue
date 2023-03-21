@@ -30,8 +30,8 @@
       <span class="bj" @click="changeSj">编辑</span>
       <span class="showpic" @click="showPic">上传/浏览图片</span>
       <el-popconfirm
-        confirm-button-text="好的"
-        cancel-button-text="不用了"
+        confirm-button-text="确定"
+        cancel-button-text="取消"
         icon="el-icon-info"
         icon-color="red"
         title="将删除该点所有信息，确定删除吗？"
