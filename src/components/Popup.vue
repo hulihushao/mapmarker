@@ -26,8 +26,20 @@
         <span>{{ value }}</span>
       </el-tooltip>
     </p>
-    <span class="bj" @click="changeSj">编辑</span>
-    <span class="showpic" @click="showPic">上传/浏览图片</span>
+    <div class="btn-con">
+      <span class="bj" @click="changeSj">编辑</span>
+      <span class="showpic" @click="showPic">上传/浏览图片</span>
+      <el-popconfirm
+        confirm-button-text="好的"
+        cancel-button-text="不用了"
+        icon="el-icon-info"
+        icon-color="red"
+        title="将删除该点所有信息，确定删除吗？"
+        @confirm="delFeature"
+      >
+        <span class="del" slot="reference" >删除</span>
+      </el-popconfirm>
+    </div>
     <UploadPic class="upload" :dialogVisible="dialogVisible" :featureData="feature" @closeDialog="closeDialog"></UploadPic>
   </div>
 </template>
@@ -93,9 +105,10 @@ export default {
     margin-right: 10px;
   }
   .bj{
-    float: left;
-    margin-left: 10px;
   }
-  
+  .btn-con {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 </style>
