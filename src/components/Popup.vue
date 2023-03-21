@@ -35,7 +35,7 @@
 <script>
 import val from "@/utils/config/val";
 import UploadPic from "@/components/UploadPic";
-import {deleteFeature} from "@/utils/commonFunc"
+import commonFunc from "@/utils/commonFunc"
 export default {
   props: {
     feature: {
@@ -66,7 +66,7 @@ export default {
       this.$EventBus.$emit('changeSj',this.feature)
     },
     delFeature(){
-      deleteFeature(this,{fid:this.feature.id,uid:JSON.parse(localStorage.getItem("user")).userId},(res)=>{
+      commonFunc.deleteFeature(this,{fid:this.feature.id,uid:JSON.parse(localStorage.getItem("user")).userId},(res)=>{
         this.$tMap.closeOverlays()
         this.$tMap.refreshLayer(this.$httpRequest)
       })
