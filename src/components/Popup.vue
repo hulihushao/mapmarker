@@ -29,7 +29,7 @@
     <div class="btn-con">
       <span class="bj" @click="changeSj">编辑</span>
       <span class="showpic" @click="showPic">上传/浏览图片</span>
-      <span class="del" @click="delFeature">删除</span>
+      <span class="del" @click="delFeature"><i v-if="delLoading" class="iconfont el-icon-loading"/>删除</span>
       </el-popconfirm>
     </div>
     <UploadPic class="upload" :dialogVisible="dialogVisible" :featureData="feature" @closeDialog="closeDialog"></UploadPic>
@@ -54,6 +54,7 @@ export default {
     return {
       val: val,
       dialogVisible: false,
+      delLoading:false,
     };
   },
   computed: {},
@@ -71,12 +72,12 @@ export default {
     },
     delFeature(){
       this.$confirm("此操作将永久删除该点位, 是否继续?", "提示", {
-
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
         .then(() => {
+          this.delLoading=true
           commonFunc.deleteFeature(
             this,
             {
@@ -84,7 +85,9 @@ export default {
               uid: JSON.parse(localStorage.getItem("user")).userId,
             },
             (res) => {
+              this.$tMap.selectClickObj.getFeatures().clear()
               this.$tMap.closeOverlays();
+              this.delLoading=false
               this.$tMap.refreshLayer(this.$httpRequest);
             }
           );
