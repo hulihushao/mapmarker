@@ -14,7 +14,7 @@
 import request from "../utils/request/request";
 export default {
   getAllPoint(params) {
-    return request("/features/"+params.userId, "get", {});
+    return request("/feature/features/"+params.userId, "get", {});
     return request("/api/map-base/all-point", "get", params);
   },
   getPic(params) {
@@ -35,13 +35,13 @@ export default {
     return request("/api/map-base/add-point", "post", data);
   },
   postPoint(data) {
-    return request("/insertPoint", "post", data);
+    return request("/feature/insertPoint", "post", data);
     return request("/api/map-base/add-point", "post", data);
   },
   changePoint(data) {
-    return request("/updatePoint", "post", data);
+    return request("/feature/updatePoint", "post", data);
   },
   delFeature(data){
-    return request("/delFeature", "post", data);
+    return request("/feature/delFeature", "post", data);
   },
 };
