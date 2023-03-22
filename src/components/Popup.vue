@@ -85,11 +85,13 @@ export default {
               uid: JSON.parse(localStorage.getItem("user")).userId,
             },
             (res) => {
+              if(res.code!=200)return
               this.$tMap.selectClickObj.getFeatures().clear()
               this.$tMap.closeOverlays();
               this.delLoading=false
               this.$tMap.refreshLayer(this.$httpRequest);
-            }
+            },
+            ()=>{this.delLoading=false}
           );
         })
         .catch(() => {
