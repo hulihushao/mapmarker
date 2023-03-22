@@ -173,7 +173,7 @@ export default {
               .catch((err) => {
                 this.loading = false;
                 this.$message({
-                  message: "新增失败！",
+                  message: "新增失败："+err.response.data.message,
                   type: "error",
                 });
               });
@@ -204,7 +204,7 @@ export default {
               .catch((err) => {
                 this.loading = false;
                 this.$message({
-                  message: "修改失败！",
+                  message: "修改失败："+err.response.data.message,
                   type: "error",
                 });
               });
