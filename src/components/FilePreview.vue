@@ -45,7 +45,7 @@
           :src="TragetObj.url"
           autoplay
           ref="videoref"
-          style="max-width:100%;transition:all .2s"
+          style="max-width: 100%; transition: all 0.2s"
         >
           您的浏览器不支持。
         </video>
@@ -59,7 +59,11 @@
           scrolling="yes"
           height="890.15"
           width="1220.4"
-          style="max-width:100%;background:rgba(255,255,255,1);border:1px solid #ccc"
+          style="
+            max-width: 100%;
+            background: rgba(255, 255, 255, 1);
+            border: 1px solid #ccc;
+          "
           :src="TragetObj.url"
         ></iframe>
       </div>
@@ -93,11 +97,15 @@
         </ul>
       </div>
       <!--下一个 -->
-      <div class="next" v-if="FilePresAll.length>1" @click="onClickNext">
+      <div class="next" v-if="FilePresAll.length > 1" @click="onClickNext">
         <i class="el-icon-arrow-right"></i>
       </div>
       <!-- 上一个 -->
-      <div class="previous" v-if="FilePresAll.length>1" @click="onCLickPrevious">
+      <div
+        class="previous"
+        v-if="FilePresAll.length > 1"
+        @click="onCLickPrevious"
+      >
         <i class="el-icon-arrow-left"></i>
       </div>
       <!-- 关闭按钮 -->
@@ -133,7 +141,7 @@ export default {
   mounted() {
     if (this.EleWidth == "") {
       if (
-        this.TragetObj.format != 'webp' &&
+        this.TragetObj.format != "webp" &&
         this.TragetObj.format != "jpg" &&
         this.TragetObj.format != "png" &&
         this.TragetObj.format != "JPG" &&
@@ -169,7 +177,7 @@ export default {
   },
   beforeUpdate() {
     if (
-      this.TragetObj.format != 'webp' &&
+      this.TragetObj.format != "webp" &&
       this.TragetObj.format != "jpg" &&
       this.TragetObj.format != "png" &&
       this.TragetObj.format != "JPG" &&
@@ -208,7 +216,7 @@ export default {
       let transform = Target.style.transform;
       let scales = Target.style.transform.match(/(\-|\+)?\d+(\.\d+)?/g);
       let rotate = "";
-      let scale
+      let scale;
       if (zoom == "in") {
         if (scales) {
           scale = scales[0] * 1 + 0.2;
@@ -233,19 +241,25 @@ export default {
     // 返回原图大小
     onClickReturnOriginal() {
       let Target = document.getElementsByClassName("Target")[0];
-      let getrotate=""
-      let transform=Target.style.transform
-      if(transform){
-        if(transform.indexOf("rotate")>-1&&transform.indexOf("scale")<0){
-        getrotate=transform
-        }else if(transform.indexOf("rotate")>-1&&transform.indexOf("scale")>-1){
-          getrotate=transform.split(" ")[1]
+      let getrotate = "";
+      let transform = Target.style.transform;
+      if (transform) {
+        if (
+          transform.indexOf("rotate") > -1 &&
+          transform.indexOf("scale") < 0
+        ) {
+          getrotate = transform;
+        } else if (
+          transform.indexOf("rotate") > -1 &&
+          transform.indexOf("scale") > -1
+        ) {
+          getrotate = transform.split(" ")[1];
         }
       }
       if (this.showFullScreen) {
-        Target.style.transform = "scale(1.4)"+" "+getrotate;
+        Target.style.transform = "scale(1.4)" + " " + getrotate;
       } else {
-        Target.style.transform = "scale(1)"+" "+getrotate;;
+        Target.style.transform = "scale(1)" + " " + getrotate;
       }
       this.showFullScreen = !this.showFullScreen;
     },
@@ -255,14 +269,14 @@ export default {
     },
     //向右旋转
     onClickRotateRight() {
-      this.Rotate("-")
+      this.Rotate("-");
     },
     Rotate(fu) {
       let Target = document.getElementsByClassName("Target")[0];
       let transform = Target.style.transform;
       if (transform) {
         let scale = Target.style.transform.match(/(\-|\+)?\d+(\.\d+)?/g);
-        let rot
+        let rot;
         if (transform.indexOf("scale") > -1) {
           if (transform.indexOf("rotate") > -1) {
             if (fu == "+") {
@@ -272,7 +286,9 @@ export default {
             }
             Target.style.transform = `scale(${scale[0]}) rotate(${rot}deg)`;
           } else {
-            Target.style.transform = `scale(${scale}) rotate(${fu=="+"?90:-90}deg)`;
+            Target.style.transform = `scale(${scale}) rotate(${
+              fu == "+" ? 90 : -90
+            }deg)`;
           }
         } else {
           if (fu == "+") {
@@ -283,7 +299,7 @@ export default {
           Target.style.transform = `rotate(${rot}deg)`;
         }
       } else {
-        Target.style.transform = `rotate(${fu=="+"?90:-90}deg)`;
+        Target.style.transform = `rotate(${fu == "+" ? 90 : -90}deg)`;
       }
     },
     // 点击下一个事件
@@ -403,7 +419,7 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .FilePreview {
   position: fixed;
   left: 0;
@@ -414,8 +430,8 @@ export default {
   .container {
     display: flex;
     flex-direction: column;
-    align-items: center; /*由于flex-direction: column，因此align-items代表的是水平方向*/
-    justify-content: center; /*由于flex-direction: column，因此justify-content代表的是垂直方向*/
+    align-items: center;
+    justify-content: center;
     position: relative;
     left: 0;
     top: 0;
@@ -425,8 +441,8 @@ export default {
       z-index: 10001;
       display: flex;
       flex-direction: column;
-      align-items: center; /*由于flex-direction: column，因此align-items代表的是水平方向*/
-      justify-content: center; /*由于flex-direction: column，因此justify-content代表的是垂直方向*/
+      align-items: center;
+      justify-content: center;
       margin: 25px;
       .modal-img {
         max-width: 100%;

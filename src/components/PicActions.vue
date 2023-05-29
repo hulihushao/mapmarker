@@ -128,7 +128,7 @@ export default {
 };
 </script>
 
-<style lang="less" >
+<style lang="scss" >
 .newHeight{
     height:40px !important;
   }
