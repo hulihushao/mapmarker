@@ -3,8 +3,8 @@
  * @version: 
  * @Author: sueRimn
  * @Date: 2022-06-02 14:20:28
- * @LastEditors: sueRimn
- * @LastEditTime: 2022-06-02 16:16:52
+ * @LastEditors: TJP
+ * @LastEditTime: 2023-05-29 18:52:23
 -->
 <template>
   <div id="uploadPic">
@@ -47,7 +47,7 @@ export default {
     },
   },
   components: {
-    Upload,,PicActions
+    Upload,PicActions
   },
   data() {
     return {
