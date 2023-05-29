@@ -172,66 +172,76 @@
   </div>
 </template>
 <script>
-import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
+import ElImageViewer from "element-ui/packages/image/src/image-viewer";
 import List from "@/components/List";
 export default {
   props: {
     show: {
-
       type: Boolean,
     },
     featureData: {
       type: Object,
     },
-    active:{
-      required:true
+    active: {
+      required: true,
     },
-    showUpload:{
-      required:true
-    }
+    showUpload: {
+      required: true,
+    },
   },
-  components:{ElImageViewer,List},
+  components: { ElImageViewer, List },
   data() {
     return {
       imgs: [
-        { encode_str: "static/img/star", type_tail: ".png",name:"star.png", res: true,
-          isShowActions: false,uid:1,command:""},
+        {
+          encode_str: "static/img/star",
+          type_tail: ".png",
+          name: "star.png",
+          res: true,
+          isShowActions: false,
+          uid: 1,
+          command: "",
+        },
       ],
       srcList: [], // 浏览数据  ['http:...jpg']
       disabled: false,
       uploading: false,
       showViewer: false,
-      imgViewIndex:0,
-      controllers:[],
-      txtUrl:"https://bpic.588ku.com/element_origin_min_pic/00/93/57/6856f2a49d1a394.jpg",
-      pdfUrl:"https://bpic.51yuansu.com/pic3/cover/02/35/82/59c1b2158b605_610.jpg",
-      wordUrl:"https://o.quizlet.com/rZLyHg8fc1ji-JQ.md7PKQ.png",
-      excelUrl:"https://www.ucbug.com/uploads/tag/x19/0622/1906225d0d4475119de.jpg",
-      pptUrl:"https://bpic.588ku.com/element_origin_min_pic/00/85/43/7256e8ea4763109.jpg",
+      imgViewIndex: 0,
+      controllers: [],
+      txtUrl:
+        "https://bpic.588ku.com/element_origin_min_pic/00/93/57/6856f2a49d1a394.jpg",
+      pdfUrl:
+        "https://bpic.51yuansu.com/pic3/cover/02/35/82/59c1b2158b605_610.jpg",
+      wordUrl: "https://o.quizlet.com/rZLyHg8fc1ji-JQ.md7PKQ.png",
+      excelUrl:
+        "https://www.ucbug.com/uploads/tag/x19/0622/1906225d0d4475119de.jpg",
+      pptUrl:
+        "https://bpic.588ku.com/element_origin_min_pic/00/85/43/7256e8ea4763109.jpg",
     };
   },
   computed: {
-    showChecked(){
-      return this.$store.state.showChecked
-    }
+    showChecked() {
+      return this.$store.state.showChecked;
+    },
   },
-  watch:{
+  watch: {
     //监听显示方式的变化
-    active(){
+    active() {
       this.imgs.forEach((item) => {
         item.visible = false;
-        item.isShowActions=false
-      })
-    }
+        item.isShowActions = false;
+      });
+    },
   },
   created() {
     this.getPic();
     //模拟获取数据
     //localStorage.removeItem("localFiles")
-    let localFiles=localStorage.getItem("localFiles")
-    if(localFiles){
-      localFiles=JSON.parse(localFiles)
-      this.imgs=[...this.imgs,...localFiles]
+    let localFiles = localStorage.getItem("localFiles");
+    if (localFiles) {
+      localFiles = JSON.parse(localFiles);
+      this.imgs = [...this.imgs, ...localFiles];
     }
     //关闭弹窗时关闭备注框
     this.$EventBus.$on("closeDialog", () => {
@@ -240,27 +250,27 @@ export default {
       });
     });
     //点击全选时改变全部数据的选中状态
-    this.$EventBus.$on("CheckAll",val=>{
-        this.imgs.forEach(item=>{
-          item.checked=val
-        })
-        this.handleCheckedChange(false, "")
-    })
+    this.$EventBus.$on("CheckAll", (val) => {
+      this.imgs.forEach((item) => {
+        item.checked = val;
+      });
+      this.handleCheckedChange(false, "");
+    });
     this.$EventBus.$on("deletes", () => {
       this.handleDeletes();
     });
-    this.$EventBus.$on("reUpload",()=>{
-      this.handleReUpload()
+    this.$EventBus.$on("reUpload", () => {
+      this.handleReUpload();
     });
-    this.$EventBus.$on("allReUpload",()=>{
-      this.handleAllReUpload()
+    this.$EventBus.$on("allReUpload", () => {
+      this.handleAllReUpload();
     });
     //设置每一项的checked及预览url数组
-    this.imgs.forEach(item=>{
-      this.$set(item,"checked",false)
+    this.imgs.forEach((item) => {
+      this.$set(item, "checked", false);
       this.$set(item, "isMore", false);
-      this.srcList.push(this.getimgs(item))
-    })
+      this.srcList.push(this.getimgs(item));
+    });
   },
   methods: {
     //请求获取数据
@@ -306,7 +316,7 @@ export default {
       if (localFiles) {
         localFiles = JSON.parse(localFiles);
         let i = localFiles.findIndex((item) => item.uid == del[0].uid);
-        if(i<0)return
+        if (i < 0) return;
         localFiles.splice(i, 1);
         localStorage.setItem("localFiles", JSON.stringify(localFiles));
       }
@@ -328,27 +338,25 @@ export default {
       c[0].controller.abort();
     },
     //下载
-    handleDownload(index,row){
-
-    },
+    handleDownload(index, row) {},
     // 图片url获取
     getimgs(item) {
-      if(item.type=="txt"){
-        return this.txtUrl
-      }else if(item.type=="pdf"){
-        return this.pdfUrl
-      }else if(item.type=="docx"){
-        return this.wordUrl
-      }else if(item.type=="xlxs"){
-        return this.excelUrl
-      }else if(item.type=="pptx"){
-        return this.pptUrl
-      }else{
-      if (!item.url) {
-        return window.imgUrl + "/" + item.encode_str + item.type_tail;
+      if (item.type == "txt") {
+        return this.txtUrl;
+      } else if (item.type == "pdf") {
+        return this.pdfUrl;
+      } else if (item.type == "docx") {
+        return this.wordUrl;
+      } else if (item.type == "xlxs") {
+        return this.excelUrl;
+      } else if (item.type == "pptx") {
+        return this.pptUrl;
       } else {
-        return item.url;
-      }
+        if (!item.url) {
+          return window.imgUrl + "/" + item.encode_str + item.type_tail;
+        } else {
+          return item.url;
+        }
       }
     },
     // 上传图片
@@ -363,39 +371,39 @@ export default {
       /*上传文件重传判断*/
       let getfs = this.imgs.filter((item) => item.uid == file.uid);
       //取消上传控制器
-      let controller=new AbortController()
+      let controller = new AbortController();
       if (!getfs.length) {
-        this.controllers.push({uid:file.uid,controller});
-        setTimeout(()=>{
-        this.imgs.push({
-          url: URL.createObjectURL(file.raw),
-          uploading: true,
-          uid: file.uid,
-          file: file,
-          res: true,
-          visible: false,
-          checked:false,
-          type: file.name.split(".")[file.name.split(".").length - 1],
-          jd: 0,
-          jd_num: 0,
-          speed: 0,
-          isMore:false,
-          isShowActions: false,
-        });
-        },100)
-        this.srcList.push(URL.createObjectURL(file.raw))
-      }else{
+        this.controllers.push({ uid: file.uid, controller });
+        setTimeout(() => {
+          this.imgs.push({
+            url: URL.createObjectURL(file.raw),
+            uploading: true,
+            uid: file.uid,
+            file: file,
+            res: true,
+            visible: false,
+            checked: false,
+            type: file.name.split(".")[file.name.split(".").length - 1],
+            jd: 0,
+            jd_num: 0,
+            speed: 0,
+            isMore: false,
+            isShowActions: false,
+          });
+        }, 100);
+        this.srcList.push(URL.createObjectURL(file.raw));
+      } else {
         this.imgs[index].uploading = true;
         this.imgs[index].res = false;
         this.imgs[index].jd_num = 0;
-        this.imgs[index].speed=0
-        let fc=this.controllers.filter((item)=>item.uid==file.uid)
-        fc[0].controller=controller
+        this.imgs[index].speed = 0;
+        let fc = this.controllers.filter((item) => item.uid == file.uid);
+        fc[0].controller = controller;
       }
-      setTimeout(()=>{
+      setTimeout(() => {
         //派发修改全选状态
-        this.handleCheckedChange(false, "")
-      },100)
+        this.handleCheckedChange(false, "");
+      }, 100);
       let params = {
         relPoint: this.featureData.encodeStr,
         command: "",
@@ -409,88 +417,89 @@ export default {
       let lastTime = 0; // 上一次计算时间
       let lastSize = 0;
       this.$httpRequest
-        .postPic(newfile,{
+        .postPic(newfile, {
           signal: controller.signal,
-          onUploadProgress:(e)=>{
-          //上传进度，速率，百分比
-          const { loaded, total } = e
-          let fs = this.imgs.filter((item) => item.uid == file.uid);
-          fs[0].jd = parseFloat((loaded / total*99.99).toFixed(2))
-          let jd_num=loaded/1024
-         if(jd_num<1024){
-           fs[0].jd_num=jd_num.toFixed(2)+"KB"
-         }else{
-          fs[0].jd_num=(jd_num/1024).toFixed(2) +"MB"
-         }
-          /* 计算间隔 */
-          const nowTime = new Date().getTime();
-          const intervalTime = (nowTime - lastTime) / 1000; // 时间单位为毫秒，需转化为秒
-          const intervalSize = loaded - lastSize;
-          let speed = 0;
-          /* 验证数据 */
-          if (lastTime == 0) {
-            lastTime = new Date().getTime();
-            lastSize = loaded;
-            speed = lastSize;
-          } else {
-            /* 重新赋值以便于下次计算 */
-            lastTime = nowTime;
-            lastSize = loaded;
-            speed = intervalSize / intervalTime;
-          }
-          let units = "b/s"; // 单位名称
-          speed = speed / 1024; //转为KB
-          if (speed < 1024) {
-            speed = parseFloat(speed.toFixed(2));
-            units = "k/s";
-          }
-          if (speed > 1024) {
-            speed = parseFloat((speed / 1024).toFixed(2));
-            units = "m/s";
-          }
-          fs[0].speed = speed + units;
-         },
+          onUploadProgress: (e) => {
+            //上传进度，速率，百分比
+            const { loaded, total } = e;
+            let fs = this.imgs.filter((item) => item.uid == file.uid);
+            fs[0].jd = parseFloat(((loaded / total) * 99.99).toFixed(2));
+            let jd_num = loaded / 1024;
+            if (jd_num < 1024) {
+              fs[0].jd_num = jd_num.toFixed(2) + "KB";
+            } else {
+              fs[0].jd_num = (jd_num / 1024).toFixed(2) + "MB";
+            }
+            /* 计算间隔 */
+            const nowTime = new Date().getTime();
+            const intervalTime = (nowTime - lastTime) / 1000; // 时间单位为毫秒，需转化为秒
+            const intervalSize = loaded - lastSize;
+            let speed = 0;
+            /* 验证数据 */
+            if (lastTime == 0) {
+              lastTime = new Date().getTime();
+              lastSize = loaded;
+              speed = lastSize;
+            } else {
+              /* 重新赋值以便于下次计算 */
+              lastTime = nowTime;
+              lastSize = loaded;
+              speed = intervalSize / intervalTime;
+            }
+            let units = "b/s"; // 单位名称
+            speed = speed / 1024; //转为KB
+            if (speed < 1024) {
+              speed = parseFloat(speed.toFixed(2));
+              units = "k/s";
+            }
+            if (speed > 1024) {
+              speed = parseFloat((speed / 1024).toFixed(2));
+              units = "m/s";
+            }
+            fs[0].speed = speed + units;
+          },
         })
         .then((res) => {
-          try{
-          //模拟上传存储
-          let localFiles=localStorage.getItem("localFiles")
-          let fileData={
-              uid:file.uid,
+          try {
+            //模拟上传存储
+            let localFiles = localStorage.getItem("localFiles");
+            let fileData = {
+              uid: file.uid,
               url: URL.createObjectURL(file.raw),
-              name:file.name,
-              file:{size:file.size},
-              res:true,
-              visible:false,
-              isShowActions:false,
+              name: file.name,
+              file: { size: file.size },
+              res: true,
+              visible: false,
+              isShowActions: false,
+            };
+            //转base64
+            let fr = new FileReader();
+            fr.readAsDataURL(file.raw);
+            if (localFiles) {
+              localFiles = JSON.parse(localFiles);
+              fr.onload = function (e) {
+                fileData.url = e.target.result;
+                localFiles.push(fileData);
+                localStorage.setItem("localFiles", JSON.stringify(localFiles));
+              };
+            } else {
+              fr.onload = function (e) {
+                fileData.url = e.target.result;
+                localStorage.setItem("localFiles", JSON.stringify([fileData]));
+              };
             }
-          //转base64
-          let fr = new FileReader()
-          fr.readAsDataURL(file.raw)
-          if(localFiles){
-            localFiles=JSON.parse(localFiles)
-            fr.onload = function(e) {
-              fileData.url=e.target.result
-            	localFiles.push(fileData)
-              localStorage.setItem("localFiles",JSON.stringify(localFiles))
+            this.$message.success("上传成功！");
+            let fs = this.imgs.filter((item) => item.uid == file.uid);
+            fs[0].jd = 100;
+            setTimeout(() => {
+              fs[0].res = true;
+              fs[0].uploading = false;
+            }, 500);
+            if (res.code == 200) {
+              this.getPic();
             }
-          }else{
-            fr.onload = function(e) {
-              fileData.url=e.target.result
-              localStorage.setItem("localFiles",JSON.stringify([fileData]))
-              }
-          }
-          this.$message.success("上传成功！");
-          let fs = this.imgs.filter((item) => item.uid == file.uid);
-          fs[0].jd = 100;
-          setTimeout(()=>{
-          fs[0].res = true;
-          fs[0].uploading = false;},500)          if (res.code == 200) {
-            this.getPic();
-          }
-        }
-       }catch{}
-       })
+          } catch {}
+        })
         .catch((err) => {
           let fs = this.imgs.filter((item) => item.uid == file.uid);
           if (fs.length) {
@@ -498,9 +507,9 @@ export default {
             fs[0].res = false;
             fs[0].visible = false;
           }
-          if(err.message=="canceled"){
+          if (err.message == "canceled") {
             this.$message.warning("取消上传！");
-          }else{
+          } else {
             this.$message.error("上传失败！");
           }
           this.uploading = false;
@@ -536,7 +545,7 @@ export default {
     handleDownload(file) {
       console.log(file);
     },
-   // 显示备注框
+    // 显示备注框
     showDescribe(index, row) {
       this.imgs.forEach((item) => {
         item.visible = false;
@@ -549,68 +558,68 @@ export default {
       item.visible = false;
     },
     //重传
-    handleReupLoad(index, item){
-      this.handlePreview(item.file,null,index)
+    handleReupLoad(index, item) {
+      this.handlePreview(item.file, null, index);
     },
     //显示操作按钮
-    showActions(index,it){
-      this.imgs.forEach((item)=>{
-        item.isShowActions=false
-      })
-      it.isShowActions=true
-     },
-     //图片预览
-     handlePreviewPic(index,item){
-      this.imgViewIndex=index
-      this.showViewer=true
+    showActions(index, it) {
+      this.imgs.forEach((item) => {
+        item.isShowActions = false;
+      });
+      it.isShowActions = true;
+    },
+    //图片预览
+    handlePreviewPic(index, item) {
+      this.imgViewIndex = index;
+      this.showViewer = true;
     },
     //关闭预览
     closeViewer() {
-       this.showViewer = false
+      this.showViewer = false;
     },
     //修改选中状态
-    handleCheckedChange(value,uid){
+    handleCheckedChange(value, uid) {
       //改变选中的checked
-      let fs=this.imgs.filter(item=>item.uid==uid)
-      if(fs.length){
-        fs.checked=value
+      let fs = this.imgs.filter((item) => item.uid == uid);
+      if (fs.length) {
+        fs.checked = value;
       }
       //改变全选的状态
-      let checkeds=this.imgs.filter(it=>it.checked)
-      this.$EventBus.$emit("changeCheckAll",checkeds,this.imgs)
+      let checkeds = this.imgs.filter((it) => it.checked);
+      this.$EventBus.$emit("changeCheckAll", checkeds, this.imgs);
       //改变重传按钮的禁用状态
-      let resTrue=checkeds.filter(it=>it.res)
-      if(!resTrue.length){
-        this.$store.commit("setReUploadDisabled",false)
-        return
+      let resTrue = checkeds.filter((it) => it.res);
+      if (!resTrue.length) {
+        this.$store.commit("setReUploadDisabled", false);
+        return;
       }
-      this.$store.commit("setReUploadDisabled",true)
+      this.$store.commit("setReUploadDisabled", true);
     },
     //批量删除
     handleDeletes() {
-      let uploading=this.imgs.filter(item=>item.uploading)
-      let checkeds=this.imgs.filter(item=>item.checked)
-      let text="此操作将永久删除已选文件"
-      if(uploading.length){
-        text="部分文件正在上传，继续操作将取消上传并删除"
+      let uploading = this.imgs.filter((item) => item.uploading);
+      let checkeds = this.imgs.filter((item) => item.checked);
+      let text = "此操作将永久删除已选文件";
+      if (uploading.length) {
+        text = "部分文件正在上传，继续操作将取消上传并删除";
       }
-      if(!checkeds.length)return
-      this.$confirm(text+", 是否继续?", "提示", {
+      if (!checkeds.length) return;
+      this.$confirm(text + ", 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
         center: TextTrackCueList,
       })
         .then(() => {
-          checkeds.forEach((item)=>{
-            if(item.uploading){
-              this.cancelUpload(item)
+          checkeds.forEach((item) => {
+            if (item.uploading) {
+              this.cancelUpload(item);
             }
-            let i=this.imgs.findIndex(it=>it.uid==item.uid)
+            let i = this.imgs.findIndex((it) => it.uid == item.uid);
             this.deleteItem(item, i);
-          })
-          this.handleCheckedChange(false,"")
-          this.$store.commit("setReUploadDisabled",false)
+          });
+          this.handleCheckedChange(false, "");
+          this.$store.commit("setReUploadDisabled", false);
         })
         .catch((e) => {
           this.$message({
@@ -619,27 +628,27 @@ export default {
           });
         });
     },
-    handleReUpload(){
-      let checkeds=this.imgs.filter(item=>item.checked)
-      checkeds.forEach(item=>{
-        let i=this.imgs.findIndex(it=>it.uid==item.uid)
-        this.handleReupLoad(i, item)
-      })
+    handleReUpload() {
+      let checkeds = this.imgs.filter((item) => item.checked);
+      checkeds.forEach((item) => {
+        let i = this.imgs.findIndex((it) => it.uid == item.uid);
+        this.handleReupLoad(i, item);
+      });
     },
-    handleAllReUpload(){
-      let resFalse=this.imgs.filter(item=>!item.res)
-      resFalse.forEach(item=>{
-        let i=this.imgs.findIndex(it=>it.uid==item.uid)
-        this.handleReupLoad(i, item)
-      })
+    handleAllReUpload() {
+      let resFalse = this.imgs.filter((item) => !item.res);
+      resFalse.forEach((item) => {
+        let i = this.imgs.findIndex((it) => it.uid == item.uid);
+        this.handleReupLoad(i, item);
+      });
     },
-    clickMore(val){
-      let get=this.imgs.filter(item=>item.uid==val.uid)
-      if(get.length)get[0].isMore=!get[0].isMore
+    clickMore(val) {
+      let get = this.imgs.filter((item) => item.uid == val.uid);
+      if (get.length) get[0].isMore = !get[0].isMore;
     },
-    isShowMore(index,value){
+    isShowMore(index, value) {
       this.$set(this.imgs[index], "isShowMore", value);
-    }
+    },
   },
 };
 </script>
