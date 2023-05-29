@@ -3,8 +3,8 @@
  * @version: 
  * @Author: sueRimn
  * @Date: 2022-06-12 15:47:49
- * @LastEditors: sueRimn
- * @LastEditTime: 2022-06-12 17:16:29
+ * @LastEditors: TJP
+ * @LastEditTime: 2023-05-29 18:48:21
 -->
 <template>
   <div id="formDialog">
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import { formatDate } from "xijs";
 export default {
   data() {
     return {
@@ -156,7 +157,7 @@ export default {
               .postPoint({
                 ...this.formLabelAlign,
                 encode_str: null,
-                create_time: this.qdtool.timestampToTime(new Date().getTime(), "yyyy-MM-dd hh:mm:ss"),
+                create_time: formatDate(new Date().getTime()),
                 modify_time: null,
                 xy: this.$store.state.position.join(","),
                 uid:user.userId
