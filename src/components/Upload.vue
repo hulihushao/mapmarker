@@ -1,6 +1,6 @@
 <template>
   <div class="image-body">
-    <template v-if="imgs.length&&active==1&&!show">
+    <template v-if="imgs.length && active == 1 && !show">
       <div v-for="(item, index) in imgs" :key="'bg-img' + index">
         <el-popover placement="top" trigger="manual" v-model="item.visible">
           <i
@@ -26,15 +26,27 @@
           <div
             class="img-box animate__animated animate__fadeInDown"
             slot="reference"
-            @mouseover="showDescribe(index, item);showActions(index,item)"
+            @mouseover="
+              showDescribe(index, item);
+              showActions(index, item);
+            "
           >
             <!--<div class="imgLoading" v-if="item.uploading">
               <b style="height:100%;font-size:12px;position:absolute;left:0;right:0;margin:auto">{{item.jd}}%{{item.jd_num}}</b>
               <i style="font-size:50px;position:relative;" class="el-icon-loading"></i>           
             </div>-->
-            <div class="imgLoading" v-if="item.uploading" style="display:flex;flex-direction: column;items-align:center;justify-content:center;">
+            <div
+              class="imgLoading"
+              v-if="item.uploading"
+              style="
+                display: flex;
+                flex-direction: column;
+                items-align: center;
+                justify-content: center;
+              "
+            >
               <i
-                style="position:relative;font-size: 20px;top:-10px"
+                style="position: relative; font-size: 20px; top: -10px"
                 class="el-icon-loading"
               ></i>
               <b
@@ -44,44 +56,72 @@
                   height: 90%;
                   width: 100%;
                   display: flex;
-                  flex-wrap:wrap;
+                  flex-wrap: wrap;
                   flex-direction: column;
-
                 "
-                ><span style="height:17%">{{ item.speed }}</span
-                ><span style="height:17%">{{ item.jd }}%</span
-                ><span style="height:17%;">{{ item.jd_num }}</span></b
+                ><span style="height: 17%">{{ item.speed }}</span
+                ><span style="height: 17%">{{ item.jd }}%</span
+                ><span style="height: 17%">{{ item.jd_num }}</span></b
               >
             </div>
-            <div class="imgLoading" v-if="!item.res&&!item.uploading">
+            <div class="imgLoading" v-if="!item.res && !item.uploading">
               <span
                 class="el-upload-list__item-preview"
                 @click="handleReupLoad(index, item)"
                 ><i class="el-icon-refresh"></i
               ></span>
             </div>
-            <el-image v-if="!item.url"
+            <el-image
+              v-if="!item.url"
               class="img-content"
               :src="getimgs(item)"
               :preview-src-list="srcList"
             ></el-image>
             <div v-else class="imgs">
-              <video v-if="item.type=='mp4'" width="100%" :src="item.url" autoplay/>
+              <video
+                v-if="item.type == 'mp4'"
+                width="100%"
+                :src="item.url"
+                autoplay
+              />
               <img :src="getimgs(item)" alt="" />
             </div>
             <transition name="el-fade-in-linear">
-             <div class="actions" v-show="item.res&&!item.uploading&&item.isShowActions">
-                <span @click="handlePreviewPic(index,item)"><i class="el-icon-zoom-in"></i></span>
-                <span @click="handleDownload(index, item)"><i class="el-icon-download"></i></span>
-                <span @click="handleRemove(index, item)"><i class="el-icon-delete"></i></span>
-             </div>
+              <div
+                class="actions"
+                v-show="item.res && !item.uploading && item.isShowActions"
+              >
+                <span @click="handlePreviewPic(index, item)"
+                  ><i class="el-icon-zoom-in"></i
+                ></span>
+                <span @click="handleDownload(index, item)"
+                  ><i class="el-icon-download"></i
+                ></span>
+                <span @click="handleRemove(index, item)"
+                  ><i class="el-icon-delete"></i
+                ></span>
+              </div>
             </transition>
-            <div v-show="showChecked" style="position:absolute;bottom:-1px;right:2px;">
-              <el-checkbox style="opacity:.7" v-model="item.checked" v-show="showChecked" label=""  @change="(value)=>{handleCheckedChange(value,item)}"></el-checkbox>
+            <div
+              v-show="showChecked"
+              style="position: absolute; bottom: -1px; right: 2px"
+            >
+              <el-checkbox
+                style="opacity: 0.7"
+                v-model="item.checked"
+                v-show="showChecked"
+                label=""
+                @change="
+                  (value) => {
+                    handleCheckedChange(value, item);
+                  }
+                "
+              ></el-checkbox>
             </div>
             <div class="toolbox">
               <i></i>
-              <i v-if="!item.res||item.uploading"
+              <i
+                v-if="!item.res || item.uploading"
                 class="el-icon-close img-close"
                 @click="handleRemove(index, item)"
               ></i>
@@ -90,12 +130,22 @@
         </el-popover>
       </div>
     </template>
-    <span v-if="show" style="width:100%;">
-     <transition mode="out-in" enter-active-class="animate__animated animate__fadeInDown" leave-active-class="">
-     <template v-if="active==2">
-      <List :imgs="imgs" :srcList="srcList" @handleCheckedChange="handleCheckedChange" @handleMore="clickMore" @showMore="isShowMore"/>
-     </template>
-     </transition>
+    <span v-if="show" style="width: 100%">
+      <transition
+        mode="out-in"
+        enter-active-class="animate__animated animate__fadeInDown"
+        leave-active-class=""
+      >
+        <template v-if="active == 2">
+          <List
+            :imgs="imgs"
+            :srcList="srcList"
+            @handleCheckedChange="handleCheckedChange"
+            @handleMore="clickMore"
+            @showMore="isShowMore"
+          />
+        </template>
+      </transition>
     </span>
     <div class="img-add" v-if="showUpload">
       <el-upload
@@ -111,7 +161,14 @@
         <div slot="file" slot-scope="{ file }"></div>
       </el-upload>
     </div>
-    <transition name="el-fade-in-linear"><el-image-viewer style="z-index:999999" v-if="showViewer" :on-close="closeViewer" :url-list="srcList" :initial-index="imgViewIndex"/></transition>
+    <transition name="el-fade-in-linear"
+      ><el-image-viewer
+        style="z-index: 999999"
+        v-if="showViewer"
+        :on-close="closeViewer"
+        :url-list="srcList"
+        :initial-index="imgViewIndex"
+    /></transition>
   </div>
 </template>
 <script>
@@ -527,7 +584,7 @@ export default {
         this.$store.commit("setReUploadDisabled",false)
         return
       }
-      this.$store.commit("setReUploadDisabled",true) 
+      this.$store.commit("setReUploadDisabled",true)
     },
     //批量删除
     handleDeletes() {
@@ -549,7 +606,7 @@ export default {
             if(item.uploading){
               this.cancelUpload(item)
             }
-            let i=this.imgs.findIndex(it=>it.uid==item.uid)  
+            let i=this.imgs.findIndex(it=>it.uid==item.uid)
             this.deleteItem(item, i);
           })
           this.handleCheckedChange(false,"")
@@ -565,15 +622,15 @@ export default {
     handleReUpload(){
       let checkeds=this.imgs.filter(item=>item.checked)
       checkeds.forEach(item=>{
-        let i=this.imgs.findIndex(it=>it.uid==item.uid)  
-        this.handleReupLoad(i, item) 
+        let i=this.imgs.findIndex(it=>it.uid==item.uid)
+        this.handleReupLoad(i, item)
       })
     },
     handleAllReUpload(){
       let resFalse=this.imgs.filter(item=>!item.res)
       resFalse.forEach(item=>{
-        let i=this.imgs.findIndex(it=>it.uid==item.uid)  
-        this.handleReupLoad(i, item) 
+        let i=this.imgs.findIndex(it=>it.uid==item.uid)
+        this.handleReupLoad(i, item)
       })
     },
     clickMore(val){
@@ -607,102 +664,100 @@ export default {
     overflow: hidden;
     img {
       width: 100%;
-   }
-  .img-box {
-    position: relative;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    height: 99px;
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-    margin:0 10px 10px 0;
-    .imgLoading{
-      background:rgba(0,4,4,.5);
-      font-size:26px;
-      width:100%;
-      height:100%;
-      position:absolute;
-      color:#fff;
-      text-align: center;
-      line-height: 18vw;
+    }
+    .img-box {
+      position: relative;
       border-radius: 5px;
-      line-height:18vw;
-      overflow:hidden;
-      i{
-
-        line-height:18vw;
-        &:hover {
-          cursor: pointer;        
-        }
-      }
-    }
-    .img-content {
-      width: 100px;
-    }
-    .actions{
-
-      width:calc(100% - 10px);
-      height:calc(100% - 10px);
-      display:flex;
-      justify-content:space-around;
-      align-items:center;
-      position:absolute;
-      padding:5px;
-      background:rgba(0, 4, 4, 0.5);
-      color:#fff;
-      border-radius:5px;
-      i{
-        &:hover {
-          cursor: pointer;
-        }
-      }
- 
-    }
-    .toolbox {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 100px;
+      border: 1px solid #ccc;
+      height: 99px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      .img-close {
+      margin-right: 10px;
+      margin: 0 10px 10px 0;
+      .imgLoading {
+        background: rgba(0, 4, 4, 0.5);
+        font-size: 26px;
+        width: 100%;
+        height: 100%;
+        position: absolute;
         color: #fff;
-        background: #909399;
-        border-radius: 8px;
-        opacity: 0.5;
+        text-align: center;
+        line-height: 18vw;
+        border-radius: 5px;
+        line-height: 18vw;
+        overflow: hidden;
+        i {
+          line-height: 18vw;
+          &:hover {
+            cursor: pointer;
+          }
+        }
       }
-      .img-close:hover {
-        cursor: pointer;
-        opacity: 1;
+      .img-content {
+        width: 100px;
       }
-      .img-download {
+      .actions {
+        width: calc(100% - 10px);
+        height: calc(100% - 10px);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: absolute;
+        padding: 5px;
+        background: rgba(0, 4, 4, 0.5);
         color: #fff;
-        background: #909399;
-        border-radius: 8px;
-        opacity: 0.5;
-        &:hover {
+        border-radius: 5px;
+        i {
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      .toolbox {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .img-close {
+          color: #fff;
+          background: #909399;
+          border-radius: 8px;
+          opacity: 0.5;
+        }
+        .img-close:hover {
           cursor: pointer;
           opacity: 1;
+        }
+        .img-download {
+          color: #fff;
+          background: #909399;
+          border-radius: 8px;
+          opacity: 0.5;
+          &:hover {
+            cursor: pointer;
+            opacity: 1;
+          }
         }
       }
     }
   }
-}
-.image-body .el-upload--picture-card {
-  width: 100px;
-  height: 100px;
-  line-height: 100px;
-}
-.image-body .el-upload-list--picture-card .el-upload-list__item {
-  width: 100px;
-  height: 100px;
-  line-height: 100px;
-}
-.el-textarea {
-  textarea {
-    width: 200px !important;
+  .image-body .el-upload--picture-card {
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+  }
+  .image-body .el-upload-list--picture-card .el-upload-list__item {
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+  }
+  .el-textarea {
+    textarea {
+      width: 200px !important;
+    }
   }
 }
 </style>
