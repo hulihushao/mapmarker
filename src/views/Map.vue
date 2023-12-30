@@ -111,7 +111,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 #mapCon {
   width: 100%;
   height: 100%;

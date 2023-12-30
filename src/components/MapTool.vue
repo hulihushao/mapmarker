@@ -150,7 +150,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 #maptool {
   position: absolute;
   top: 10px;

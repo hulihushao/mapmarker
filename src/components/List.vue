@@ -217,7 +217,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 #pic-list {
   width: 90%;
   .img-content {
@@ -304,7 +304,7 @@ export default {
 }
 </style>
 <!--
-<style lang="sass" scoped>
+<style lang="less" scoped>
 #pic-list {
   width: 90%;
   .img-content {

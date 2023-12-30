@@ -652,7 +652,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="less">
 .image-body {
   display: flex;
   flex-wrap: wrap;

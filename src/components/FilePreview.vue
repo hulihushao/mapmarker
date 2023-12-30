@@ -419,7 +419,7 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .FilePreview {
   position: fixed;
   left: 0;

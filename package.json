@@ -23,8 +23,10 @@
     "@vue/cli-plugin-router": "~4.5.12",
     "@vue/cli-plugin-vuex": "~4.5.12",
     "@vue/cli-service": "~4.5.12",
-    "node-sass": "^6.0.1",
-    "sass-loader": "^10.0.1",
+    "node-sass": "^5.0.0",
+    "sass-loader": "^10.5.1",
+    "less": "^3.13.1",
+    "less-loader": "^7.3.0",
     "vue-template-compiler": "^2.6.11"
   },
   "browserslist": [
