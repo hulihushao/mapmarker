@@ -3,33 +3,33 @@
  * @version:
  * @Author: sueRimn
  * @Date: 2022-06-01 17:08:33
- * @LastEditors: sueRimn
- * @LastEditTime: 2022-06-02 08:57:08
+ * @LastEditors: TJP
+ * @LastEditTime: 2024-01-07 15:54:57
  */
 import axios from "axios";
-import { Message } from 'element-ui';
+import { Message } from "element-ui";
 const httpRequest = axios.create({
   baseURL: window.baseUrl || "",
   timeout: 10000,
 });
 
 httpRequest.interceptors.request.use(
-  config => {
-
-      return config
+  (config) => {
+    return config;
   },
-  error => {
-      return Promise.reject(error)
+  (error) => {
+    return Promise.reject(error);
   }
-)
+);
 
 httpRequest.interceptors.response.use(
-  response => {
-      const res = response.data
-      
-      return res;
-  }, error => {
-      let { response } = error;
+  (response) => {
+    const res = response.data;
+
+    return res;
+  },
+  (error) => {
+    let { response } = error;
     if (response) {
       // console.log('err', error)
       return Promise.reject(error);
@@ -41,9 +41,9 @@ httpRequest.interceptors.response.use(
       });
     }
   }
-)
+);
 
-let $httpRequest = (url, method='get', data, headers,option={}) => {
+let $httpRequest = (url, method = "get", data, headers, option = {}) => {
   let params = {};
   if (method == "get") {
     params = {
@@ -64,16 +64,16 @@ let $httpRequest = (url, method='get', data, headers,option={}) => {
         url: url,
         method: method,
         data: data,
-        headers:{
-      'Content-Type':'application/x-www-form-urlencoded'
-    }
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
       };
     }
   }
-  if(option.onUploadProgress){
-    params.onUploadProgress=option.onUploadProgress
+  if (option.onUploadProgress) {
+    params.onUploadProgress = option.onUploadProgress;
   }
-  params={...params,...option}
+  params = { ...params, ...option };
 
   return httpRequest(params);
 };

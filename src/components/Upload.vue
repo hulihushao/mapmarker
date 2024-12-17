@@ -53,15 +53,15 @@
                 style="
                   font-size: 12px;
                   position: absolute;
-                  height: 90%;
+                  bottom: 10px;
                   width: 100%;
                   display: flex;
                   flex-wrap: wrap;
                   flex-direction: column;
                 "
-                ><span style="height: 17%">{{ item.speed }}</span
-                ><span style="height: 17%">{{ item.jd }}%</span
-                ><span style="height: 17%">{{ item.jd_num }}</span></b
+                ><span style="height: 13px">{{ item.speed }}</span
+                ><span style="height: 13px">{{ item.jd }}%</span
+                ><span style="height: 13px">{{ item.jd_num }}</span></b
               >
             </div>
             <div class="imgLoading" v-if="!item.res && !item.uploading">
@@ -89,7 +89,7 @@
             <transition name="el-fade-in-linear">
               <div
                 class="actions"
-                v-show="item.res && !item.uploading && item.isShowActions"
+                v-show="item.res && !item.uploading && item.isShowActions && item.visible"
               >
                 <span @click="handlePreviewPic(index, item)"
                   ><i class="el-icon-zoom-in"></i
@@ -102,22 +102,7 @@
                 ></span>
               </div>
             </transition>
-            <div
-              v-show="showChecked"
-              style="position: absolute; bottom: -1px; right: 2px"
-            >
-              <el-checkbox
-                style="opacity: 0.7"
-                v-model="item.checked"
-                v-show="showChecked"
-                label=""
-                @change="
-                  (value) => {
-                    handleCheckedChange(value, item);
-                  }
-                "
-              ></el-checkbox>
-            </div>
+
             <div class="toolbox">
               <i></i>
               <i
@@ -153,7 +138,7 @@
         list-type="picture-card"
         :multiple="true"
         :auto-upload="false"
-        accept=".jpeg,.jpg,.png,"
+        accept=".jpeg,.jpg,.png,.mp4"
         :on-change="handlePreview"
       >
         <i slot="default" class="el-icon-loading" v-if="uploading"></i>
@@ -360,9 +345,9 @@ export default {
       }
     },
     // 上传图片
-    handlePreview(file, fileList) {
+    handlePreview(file, fileList,index) {
       console.log(file);
-      const isLt10M = file.size / 1024 / 1024 < 10;
+      const isLt10M = file.size / 1024 / 1024 < 60;
       if (!isLt10M) {
         this.$message.error("上传图片大小不能超过 10MB!");
         return;
@@ -652,116 +637,119 @@ export default {
   },
 };
 </script>
-<style lang="less">
+<style lang="scss" scoped>
 .image-body {
   display: flex;
   flex-wrap: wrap;
-  width: 560px;
-  overflow-y: auto;
+  // width: 560px;
+  // overflow-y: auto;
   .img-add {
+    width: 100px;
     ul {
       width: 0;
       height: 0;
       display: none;
     }
   }
-  .imgs {
-    width: 18vw;
-    height: 18vw;
+  .img-content {
+    width: 100px;
+  }
+
+  .img-box {
+    position: relative;
     border-radius: 5px;
-    margin-right: 0px;
-    overflow: hidden;
-    img {
-      width: 100%;
-    }
-    .img-box {
-      position: relative;
+    border: 1px solid #ccc;
+    height: 99px;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    margin: 0 10px 10px 0;
+    .imgs {
+      width: 100px;
+      height: 100px;
       border-radius: 5px;
-      border: 1px solid #ccc;
-      height: 99px;
-      display: flex;
-      align-items: center;
-      margin-right: 10px;
-      margin: 0 10px 10px 0;
-      .imgLoading {
-        background: rgba(0, 4, 4, 0.5);
-        font-size: 26px;
+      margin-right: 0px;
+      overflow: hidden;
+      img {
         width: 100%;
-        height: 100%;
-        position: absolute;
+      }
+    }
+    .imgLoading {
+      background: rgba(0, 4, 4, 0.5);
+      font-size: 26px;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      color: #fff;
+      text-align: center;
+      border-radius: 5px;
+      // line-height: 18vw;
+      overflow: hidden;
+      i {
+        line-height: 100px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+    /deep/.actions {
+      width: calc(100% - 10px);
+      height: calc(100% - 10px);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      padding: 5px;
+      background: rgba(0, 4, 4, 0.5);
+      color: #fff;
+      border-radius: 5px;
+      i {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+    .toolbox {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .img-close {
         color: #fff;
-        text-align: center;
-        line-height: 18vw;
-        border-radius: 5px;
-        line-height: 18vw;
-        overflow: hidden;
-        i {
-          line-height: 18vw;
-          &:hover {
-            cursor: pointer;
-          }
-        }
+        background: #909399;
+        border-radius: 8px;
+        opacity: 0.5;
       }
-      .img-content {
-        width: 100px;
+      .img-close:hover {
+        cursor: pointer;
+        opacity: 1;
       }
-      .actions {
-        width: calc(100% - 10px);
-        height: calc(100% - 10px);
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        position: absolute;
-        padding: 5px;
-        background: rgba(0, 4, 4, 0.5);
+      .img-download {
         color: #fff;
-        border-radius: 5px;
-        i {
-          &:hover {
-            cursor: pointer;
-          }
-        }
-      }
-      .toolbox {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 100px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        .img-close {
-          color: #fff;
-          background: #909399;
-          border-radius: 8px;
-          opacity: 0.5;
-        }
-        .img-close:hover {
+        background: #909399;
+        border-radius: 8px;
+        opacity: 0.5;
+        &:hover {
           cursor: pointer;
           opacity: 1;
         }
-        .img-download {
-          color: #fff;
-          background: #909399;
-          border-radius: 8px;
-          opacity: 0.5;
-          &:hover {
-            cursor: pointer;
-            opacity: 1;
-          }
-        }
       }
     }
   }
-  .image-body .el-upload--picture-card {
+  /deep/.el-upload--picture-card {
     width: 100px;
     height: 100px;
     line-height: 100px;
   }
-  .image-body .el-upload-list--picture-card .el-upload-list__item {
+  /deep/.el-upload-list--picture-card .el-upload-list__item {
     width: 100px;
     height: 100px;
     line-height: 100px;
+    display: none;
   }
   .el-textarea {
     textarea {

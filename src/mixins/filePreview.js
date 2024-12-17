@@ -10,11 +10,12 @@ export default {
       timers: "", //时间戳
       FilePreAll: [], // 预览数组
       TragetPic: {}, // 当前点击的预览文件对象
+      videoIndex: -1,
     };
   },
   methods: {
     // 打开预览
-    onClickOpenPreview(val) {
+    onClickOpenPreview(val, index) {
       this.TragetPic = {
         // 当前点击的文件
         FileName: val.name || val.file.name, // 文件名称
@@ -48,12 +49,28 @@ export default {
         this.FilePreAll.push(obj);
       });
 
+      if (this.$refs.preview[index].pause) {
+        this.videoIndex = index;
+        this.$refs.preview[index].pause();
+        let currentTime = this.$refs.preview[index].currentTime;
+        localStorage.setItem("currentTime", val.url + "," + currentTime);
+      }
       this.IsPreview = true; // 打开预览弹窗
       this.timers = new Date().getTime(); // 刷新预览地址
     },
     // 关闭预览
     onClickClosePreview(val) {
       this.IsPreview = val; // 由组件内部传入的关闭数据赋值关闭
+      if (this.$refs.preview[this.videoIndex]) {
+        let localCurTime = localStorage.getItem("currentTime");
+        let currentTime = 0;
+        if (localCurTime) {
+          currentTime = localCurTime.split(",")[1];
+        }
+        this.$refs.preview[this.videoIndex].currentTime =
+          parseFloat(currentTime);
+        this.$refs.preview[this.videoIndex].play();
+      }
     },
   },
 };

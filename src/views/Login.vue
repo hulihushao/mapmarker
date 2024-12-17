@@ -197,7 +197,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="scss">
 .page-login {
   position: relative;
   height: 100%;

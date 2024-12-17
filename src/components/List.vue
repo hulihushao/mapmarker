@@ -4,8 +4,8 @@
  * @version: 
  * @Author: sueRimn
  * @Date: 2022-06-02 14:20:28
- * @LastEditors: sueRimn
- * @LastEditTime: 2022-06-02 16:16:52
+ * @LastEditors: TJP
+ * @LastEditTime: 2024-02-05 16:05:40
 -->
 <template>
   <div id="pic-list">
@@ -23,14 +23,15 @@
         shadow="hover"
         v-for="(item,index) in imgs"
         :key="item.uid"
-        ><div class="img-content" @click="onClickOpenPreview(item)">
+        >
+        <div class="img-content" @click="onClickOpenPreview(item,index)">
           <video
             v-if="item.type == 'mp4'"
             width="100%"
             :src="item.url"
-            autoplay
+            autoplay ref="preview"
           />
-          <el-image ref="preview" fit="contain" :src="getimgs(item)" ></el-image>
+          <el-image v-else ref="preview" fit="contain" :src="getimgs(item)" ></el-image>
         </div>
         <div class="text">
           <div :style="{width:$store.state.showChecked?'90%':'100%'}">
@@ -175,7 +176,7 @@ export default {
         let isShow = false;
         let parentWidth = item.scrollWidth;
         let contentWidth = item.offsetWidth;
-        alert(parentWidth + "," + contentWidth);
+        // alert(parentWidth + "," + contentWidth);
         if (contentWidth < parentWidth) {
           isShow = true;
         } else {
@@ -217,7 +218,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 #pic-list {
   width: 90%;
   .img-content {
@@ -304,7 +305,7 @@ export default {
 }
 </style>
 <!--
-<style lang="less" scoped>
+<style lang="sass" scoped>
 #pic-list {
   width: 90%;
   .img-content {

@@ -99,7 +99,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 li {
   padding: 10px 12px;
   cursor: pointer;

@@ -80,7 +80,7 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 #time {
   width: 100px;
   height: 50px;

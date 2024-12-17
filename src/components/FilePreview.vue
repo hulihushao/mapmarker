@@ -320,13 +320,13 @@ export default {
       if (!video) return;
       let currentTime = this.$refs.videoref.currentTime;
       let localCurTime = localStorage.getItem("currentTime");
-      if (localCurTime) {
-        localStorage.setItem(
-          "currentTime",
-          localCurTime + "+" + video.src + "," + currentTime
-        );
-        return;
-      }
+      // if (localCurTime) {
+      //   localStorage.setItem(
+      //     "currentTime",
+      //     localCurTime + "+" + video.src + "," + currentTime
+      //   );
+      //   return;
+      // }
       localStorage.setItem("currentTime", video.src + "," + currentTime);
     },
 
@@ -419,7 +419,7 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .FilePreview {
   position: fixed;
   left: 0;
